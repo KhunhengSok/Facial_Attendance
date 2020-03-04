@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Facial Attandance</string>
+    <string name="welcome">Welcome to</string>
+    <string name="slogan">Your record is our job</string>
+    <string name="letgo">Let\'s go</string>
+
+</resources>
