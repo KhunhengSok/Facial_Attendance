@@ -17,6 +17,14 @@ public class WelcomeNewbieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_newbie);
         Button go = (Button) findViewById(R.id.go);
-        
+
+        go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeNewbieActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
