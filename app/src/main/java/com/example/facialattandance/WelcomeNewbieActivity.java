@@ -21,7 +21,7 @@ public class WelcomeNewbieActivity extends AppCompatActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeNewbieActivity.this,LoginActivity.class);
+                Intent intent = new Intent(WelcomeNewbieActivity.this,HomeActivity.class);
                 startActivity(intent);
             }
         });

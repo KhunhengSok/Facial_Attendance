@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorBackground"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom">
+            <Button
+                android:layout_width="134dp"
+                android:layout_height="200dp"
+                android:text="Morning"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center"
+                android:background="@drawable/soft_button_home"
+                android:fontFamily="sans-serif-condensed-light"/>
+
+            <Button
+                android:layout_width="134dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/soft_button_home"
+                android:fontFamily="sans-serif-condensed-light"
+                android:gravity="center"
+                android:text="Afternoon"
+                android:textColor="@android:color/white"
+                android:textSize="16dp" />
+
+            <Button
+                android:layout_width="134dp"
+                android:layout_height="200dp"
+                android:text="Evening"
+                android:textSize="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:background="@drawable/soft_button_home"
+                android:fontFamily="sans-serif-condensed-light"/>
+        </LinearLayout>
+        </HorizontalScrollView>
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </LinearLayout>
+
+</LinearLayout>
