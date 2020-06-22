@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/soft_button">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_profile"
+        android:layout_width="200dp"
+        android:layout_height="128dp"
+        app:placeholderImage="@drawable/ic_image_black_24dp"
+        app:roundedCornerRadius="2dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/img_profile"
+        android:layout_marginTop="34dp"
+        android:layout_marginStart="12dp"
+        android:textSize="24dp"
+        android:id="@+id/name"
+        android:text="Name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/img_profile"
+        android:layout_below="@id/name"
+        android:textSize="16dp"
+        android:layout_marginStart="12dp"
+        android:id="@+id/department"
+        android:text="Department"/>
+
+
+
+
+</RelativeLayout>

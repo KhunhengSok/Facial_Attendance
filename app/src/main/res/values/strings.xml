@@ -8,6 +8,8 @@
     <string name="login">Login</string>
     <string name="rigister">Register</string>
     <string name="wannabepart">Wanna Be Our Customer</string>
+    <string name="position">Position</string>
+    <string name="department">Department</string>
 
 
 </resources>
