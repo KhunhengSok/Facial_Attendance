@@ -1,4 +1,4 @@
-package com.example.facialattandance;
+package com.example.facialattandance.adaptor;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.facialattandance.Model.Employee;
+import com.example.facialattandance.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 

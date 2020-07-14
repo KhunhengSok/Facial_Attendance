@@ -15,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.facialattandance.Model.Employee;
+import com.example.facialattandance.adaptor.EmployeeAdaptor;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -57,13 +59,12 @@ public class EmployeeActivity extends AppCompatActivity {
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                // Hide progress bar and show recycler view
+
                 showLoading(false);
 
                 // Deserialize json using gson library
                 Gson gson = new Gson();
                 Employee[] employees = gson.fromJson(response.toString(), Employee[].class);
-
                 EmployeeAdaptor adapter = new EmployeeAdaptor(employees);
                 recyclerView.setAdapter(adapter);
 

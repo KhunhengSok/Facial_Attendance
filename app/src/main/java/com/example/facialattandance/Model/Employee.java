@@ -1,4 +1,4 @@
-package com.example.facialattandance;
+package com.example.facialattandance.Model;
 
 public class Employee {
     private String name;

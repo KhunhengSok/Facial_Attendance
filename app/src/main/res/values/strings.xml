@@ -10,6 +10,11 @@
     <string name="wannabepart">Wanna Be Our Customer</string>
     <string name="position">Position</string>
     <string name="department">Department</string>
+    <string name="camera">Camera</string>
+    <string name="home">Home</string>
+    <string name="setup">Set up</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

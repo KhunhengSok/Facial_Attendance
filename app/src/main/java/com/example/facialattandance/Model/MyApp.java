@@ -1,4 +1,4 @@
-package com.example.facialattandance;
+package com.example.facialattandance.Model;
 
 import android.app.Application;
 
