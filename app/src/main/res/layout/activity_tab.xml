@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TabActivity">
+    tools:context=".Activity.TabActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        app:itemTextColor="@drawable/selector_bottombar_text"
+        app:itemTextColor="@drawable/selector_bottombar"
+        app:itemIconTint="@drawable/selector_bottombar"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/tab_activity"/>
 

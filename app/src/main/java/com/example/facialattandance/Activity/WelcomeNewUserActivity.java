@@ -1,4 +1,4 @@
-package com.example.facialattandance;
+package com.example.facialattandance.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.facialattandance.R;
 
 public class WelcomeNewUserActivity extends AppCompatActivity {
 
@@ -24,7 +26,7 @@ public class WelcomeNewUserActivity extends AppCompatActivity {
                 SharedPreferences.Editor isStarted = getSharedPreferences("isStarted", MODE_PRIVATE).edit();
                 isStarted.putBoolean("isStarted",true);
                 isStarted.apply();
-                Intent intent = new Intent(WelcomeNewUserActivity.this,TabActivity.class);
+                Intent intent = new Intent(WelcomeNewUserActivity.this, TabActivity.class);
                 startActivity(intent);
             }
         });

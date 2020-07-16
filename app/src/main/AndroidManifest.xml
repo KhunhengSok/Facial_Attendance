@@ -17,14 +17,14 @@
         android:usesCleartextTraffic="true">
 
 
-        <activity android:name=".WelcomeNewUserActivity"></activity>
-        <activity android:name=".TabActivity" />
-        <activity android:name=".EmployeeActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" /> <!-- EmployeeActivity -->
+        <activity android:name=".Activity.WelcomeNewUserActivity"></activity>
+        <activity android:name=".Activity.TabActivity" />
+        <activity android:name=".Activity.EmployeeActivity" />
+        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.MainActivity" /> <!-- EmployeeActivity -->
         <!-- WelcomeNewUserActivity -->
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

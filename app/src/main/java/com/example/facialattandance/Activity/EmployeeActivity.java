@@ -1,4 +1,4 @@
-package com.example.facialattandance;
+package com.example.facialattandance.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,16 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.facialattandance.Model.Employee;
+import com.example.facialattandance.R;
 import com.example.facialattandance.adaptor.EmployeeAdaptor;
 import com.google.gson.Gson;
-
 import org.json.JSONArray;
 
 public class EmployeeActivity extends AppCompatActivity {
@@ -31,16 +30,11 @@ public class EmployeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
-        // RecyclerView
         recyclerView = findViewById(R.id.recycler_view);
 
-        // Progressbar
         progressBar = findViewById(R.id.progress_bar);
 
-        // LayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-
-        // Load employee from server
         loadEmployee();
 
         recyclerView.setLayoutManager(layoutManager);

@@ -1,8 +1,9 @@
-package com.example.facialattandance
+package com.example.facialattandance.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.facialattandance.R
 import com.example.facialattandance.fragment.CameraFragment
 import com.example.facialattandance.fragment.HomeFragment
 import com.example.facialattandance.fragment.SetupFragment
@@ -35,7 +36,6 @@ class TabActivity : AppCompatActivity() {
                     supportActionBar!!.setTitle(R.string.setup)
                     showFragment(SetupFragment())
                 }
-
             }
 
             true
