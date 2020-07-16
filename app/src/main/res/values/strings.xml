@@ -13,7 +13,12 @@
     <string name="camera">Camera</string>
     <string name="home">Home</string>
     <string name="setup">Set up</string>
-
+    <string name="bestEmployee">Best Employee</string>
+    <string name="lateEmployee">Late Employee</string>
+    <string name="title">Title</string>
+    <string name="latetime">Late Time</string>
+    <string name="starttime">Starting Time</string>
+    <string name="date">Date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

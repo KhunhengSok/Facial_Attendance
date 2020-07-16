@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.facialattandance.fragment.CameraFragment
-import com.example.facialattandance.fragment.setupFragment
+import com.example.facialattandance.fragment.HomeFragment
+import com.example.facialattandance.fragment.SetupFragment
 import kotlinx.android.synthetic.main.activity_tab.*
 
 class TabActivity : AppCompatActivity() {
@@ -16,27 +17,25 @@ class TabActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Show ProductsFragment as default
-        showFragment(CameraFragment())
+        showFragment(HomeFragment())
 
         // Handle event when user clicks on Bottom Nav items
         bottomNav.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
-//                R.id.mnu_camera -> {
-//                    supportActionBar!!.setTitle(R.string.camera)
-//                }
-//                R.id.mnu_categories -> {
-//                    supportActionBar!!.setTitle(R.string.categories)
-//                    showFragment(CategoriesFragment())
-//                }
-//                R.id.mnu_profile -> {
-//                    supportActionBar!!.setTitle(R.string.profile)
-//                    showFragment(ProfileFragment())
-//                }
-//                else -> {
-//                    supportActionBar!!.setTitle(R.string.settings)
-//                    showFragment(SettingsFragment())
-//                }
+                R.id.mnu_camera -> {
+                    supportActionBar!!.setTitle(R.string.camera)
+                    showFragment(CameraFragment())
+                }
+                R.id.mnu_home -> {
+                    supportActionBar!!.setTitle(R.string.home)
+                    showFragment(HomeFragment())
+                }
+                R.id.mnu_setup -> {
+                    supportActionBar!!.setTitle(R.string.setup)
+                    showFragment(SetupFragment())
+                }
+
             }
 
             true

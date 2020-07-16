@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".CameraActivity">
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/image"
