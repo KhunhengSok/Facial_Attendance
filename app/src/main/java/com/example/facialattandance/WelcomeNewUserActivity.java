@@ -3,12 +3,12 @@ package com.example.facialattandance;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class WelcomeNewbieActivity extends AppCompatActivity {
+public class WelcomeNewUserActivity extends AppCompatActivity {
 
 
 
@@ -21,7 +21,10 @@ public class WelcomeNewbieActivity extends AppCompatActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeNewbieActivity.this,TabActivity.class);
+                SharedPreferences.Editor isStarted = getSharedPreferences("isStarted", MODE_PRIVATE).edit();
+                isStarted.putBoolean("isStarted",true);
+                isStarted.apply();
+                Intent intent = new Intent(WelcomeNewUserActivity.this,TabActivity.class);
                 startActivity(intent);
             }
         });

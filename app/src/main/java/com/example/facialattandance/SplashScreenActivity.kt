@@ -1,0 +1,29 @@
+package com.example.facialattandance
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
+//import sun.jvm.hotspot.utilities.IntArray
+
+
+class SplashScreenActivity : AppCompatActivity() {
+
+    private val SPLASH_TIME_OUT: Long = 1500 //1.5s
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_slash_screen)
+        val prefs = getSharedPreferences("isStarted", Context.MODE_PRIVATE)
+        val isStarted = prefs.getBoolean("isStarted", false)
+        Handler().postDelayed({
+            if(isStarted) {
+                startActivity(Intent(this,TabActivity::class.java))
+            } else {
+                startActivity(Intent(this, WelcomeNewUserActivity::class.java))
+            }
+            finish()
+        }, SPLASH_TIME_OUT)
+    }
+}

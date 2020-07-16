@@ -19,6 +19,7 @@
     <string name="latetime">Late Time</string>
     <string name="starttime">Starting Time</string>
     <string name="date">Date</string>
+    <string name="scan">Scan Face</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

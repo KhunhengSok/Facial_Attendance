@@ -21,6 +21,9 @@
         android:id="@+id/camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan Face"/>
+        android:textColor="@android:color/white"
+        android:background="@drawable/soft_button"
+        android:padding="12dp"
+        android:text="@string/scan"/>
 
 </LinearLayout>
