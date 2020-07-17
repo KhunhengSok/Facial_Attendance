@@ -15,12 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
-        <activity android:name=".Activity.WelcomeNewUserActivity"></activity>
+        <activity android:name=".Activity.ProfileActivity"></activity>
+        <activity android:name=".Activity.WelcomeNewUserActivity" />
         <activity android:name=".Activity.TabActivity" />
         <activity android:name=".Activity.EmployeeActivity" />
-        <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.MainActivity" /> <!-- EmployeeActivity -->
         <!-- WelcomeNewUserActivity -->

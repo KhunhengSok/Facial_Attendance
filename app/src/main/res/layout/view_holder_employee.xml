@@ -4,6 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
     android:background="@drawable/soft_button">
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -20,6 +21,8 @@
         android:layout_marginTop="34dp"
         android:layout_marginStart="12dp"
         android:textSize="24dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textColor="@android:color/white"
         android:id="@+id/name"
         android:text="Name"/>
 
@@ -29,11 +32,10 @@
         android:layout_toEndOf="@id/img_profile"
         android:layout_below="@id/name"
         android:textSize="16dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textColor="@android:color/white"
         android:layout_marginStart="12dp"
         android:id="@+id/department"
         android:text="Department"/>
-
-
-
 
 </RelativeLayout>

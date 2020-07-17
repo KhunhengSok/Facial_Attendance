@@ -3,7 +3,8 @@ package com.example.facialattandance.Model;
 public class Employee {
     private String name;
     private String department;
-    private String image;
+    private String imageUrl;
+    private String postion;
 
 
     public String getName() {
@@ -22,11 +23,15 @@ public class Employee {
         this.department = department;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
+    public String getPostion() { return postion; }
+
+    public void setPostion(String postion) { this.postion = postion; }
 }

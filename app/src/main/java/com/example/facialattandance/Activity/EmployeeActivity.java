@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private String endpoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +37,15 @@ public class EmployeeActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        loadEmployee();
+
+        Intent intent = getIntent();
+        endpoint = intent.getStringExtra("types");
+        loadEmployee(endpoint);
 
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    private void loadEmployee() {
+    private void loadEmployee(String endpoint) {
         // Show progress bar and hide recycler view
         showLoading(true);
 
@@ -48,7 +53,7 @@ public class EmployeeActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         // Initialize request
-        String url = "http://10.0.2.2:3000/Employee";
+        String url = "http://10.0.2.2:3000/" + endpoint;
 
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override

@@ -35,15 +35,12 @@ class CameraFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_camera, container, false)
-        image_uri = null
-        PERMISSION_CODE = 1000
-        IMAGE_CAPTURE_CODE = 1001
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        camera.setOnClickListener {
+        showLoading(false)
+        image.setOnClickListener {
             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 if (ActivityCompat.checkSelfPermission(context!!, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
                         ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -52,7 +49,6 @@ class CameraFragment : Fragment() {
                 } else {
                     openCamera()
                 }
-
             }
             else {
                 openCamera()
@@ -66,7 +62,6 @@ class CameraFragment : Fragment() {
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
         image_uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-//        camera intent
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
@@ -78,11 +73,9 @@ class CameraFragment : Fragment() {
             PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED){
-                    //permission from popup was granted
                     openCamera()
                 }
                 else{
-                    //permission from popup was denied
                     Toast.makeText(activity, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -90,10 +83,16 @@ class CameraFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //called when image was captured from camera intent
         if (resultCode == Activity.RESULT_OK){
-            //set image captured to image view
             image.setImageURI(image_uri)
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.INVISIBLE
         }
     }
 

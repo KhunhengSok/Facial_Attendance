@@ -80,12 +80,13 @@
 
         <Button
             android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:layout_height="100dp"
             android:background="@drawable/soft_button"
             android:layout_marginBottom="32dp"
             android:fontFamily="sans-serif-condensed-light"
+            android:id="@+id/bestEmployee"
             android:textColor="@android:color/white"
             android:textSize="16dp"
             android:text="@string/bestEmployee"/>
@@ -94,6 +95,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_height="100dp"
+            android:id="@+id/lateEmployee"
             android:background="@drawable/soft_button"
             android:layout_marginBottom="32dp"
             android:fontFamily="sans-serif-condensed-light"
