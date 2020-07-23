@@ -7,13 +7,13 @@ import com.example.facialattandance.R
 import com.example.facialattandance.fragment.CameraFragment
 import com.example.facialattandance.fragment.HomeFragment
 import com.example.facialattandance.fragment.SetupFragment
-import kotlinx.android.synthetic.main.activity_tab.*
+import kotlinx.android.synthetic.main.activity_home.*
 
-class TabActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tab)
+        setContentView(R.layout.activity_home)
 
         setSupportActionBar(toolbar)
 

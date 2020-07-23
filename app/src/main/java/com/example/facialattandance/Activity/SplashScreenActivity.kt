@@ -12,7 +12,7 @@ import com.example.facialattandance.R
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val SPLASH_TIME_OUT: Long = 1500 //1.5s
+    private val SPLASH_TIME_OUT: Long = 500 //0.5s
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val isStarted = prefs.getBoolean("isStarted", false)
         Handler().postDelayed({
             if(isStarted) {
-                startActivity(Intent(this, TabActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
             } else {
                 startActivity(Intent(this, WelcomeNewUserActivity::class.java))
             }
