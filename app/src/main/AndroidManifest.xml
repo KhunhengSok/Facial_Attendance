@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.example.facialattandance">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,13 +16,16 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.RegisterActivity"></activity>
+        <activity
+                android:name=".Activity.RegisterOrLoginActivity"/>
+        <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.WelcomeNewUserActivity" />
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.EmployeeActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.MainActivity" /> <!-- EmployeeActivity -->
+
         <!-- WelcomeNewUserActivity -->
         <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>

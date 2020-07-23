@@ -21,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val isStarted = prefs.getBoolean("isStarted", false)
         Handler().postDelayed({
             if(isStarted) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, RegisterOrLoginActivity::class.java))
             } else {
                 startActivity(Intent(this, WelcomeNewUserActivity::class.java))
             }

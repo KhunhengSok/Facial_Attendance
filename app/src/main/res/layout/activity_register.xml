@@ -63,6 +63,7 @@
             android:background="@drawable/border_edit_text" />
 
     <Button
+            android:id="@+id/registerButton"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
