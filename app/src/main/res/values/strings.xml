@@ -3,10 +3,12 @@
     <string name="welcome">Welcome to</string>
     <string name="slogan">Your record is our job</string>
     <string name="letgo">Let\'s go</string>
+    <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="login">Login</string>
-    <string name="rigister">Register</string>
+    <string name="register">Register</string>
     <string name="wannabepart">Wanna Be Our Customer</string>
     <string name="position">Position</string>
     <string name="department">Department</string>

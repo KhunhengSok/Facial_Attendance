@@ -26,7 +26,7 @@ public class WelcomeNewUserActivity extends AppCompatActivity {
                 SharedPreferences.Editor isStarted = getSharedPreferences("isStarted", MODE_PRIVATE).edit();
                 isStarted.putBoolean("isStarted",true);
                 isStarted.apply();
-                Intent intent = new Intent(WelcomeNewUserActivity.this, HomeActivity.class);
+                Intent intent = new Intent(WelcomeNewUserActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
