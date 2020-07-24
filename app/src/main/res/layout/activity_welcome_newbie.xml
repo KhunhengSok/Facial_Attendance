@@ -35,7 +35,7 @@
             android:layout_alignParentStart="true"
             android:paddingStart="8dp"
             android:textSize="32dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/text"
             android:fontFamily="sans-serif-condensed-light"
             android:id="@+id/welcome"
             android:text="@string/welcome"/>
@@ -49,7 +49,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/welcome"
             android:text="@string/app_name"
-            android:textColor="@android:color/white"
+            android:textColor="@color/text"
             android:textSize="32dp" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/nameapp"
             android:text="@string/slogan"
-            android:textColor="@android:color/white"
+            android:textColor="@color/text"
             android:textSize="20dp" />
 
     </RelativeLayout>
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:id="@+id/go"
             android:layout_height="64dp"
-            android:background="@color/button"
+            android:background="@color/colorPrimary"
             android:text="@string/letgo"
             android:textColor="@android:color/white"/>
     </LinearLayout>

@@ -16,7 +16,7 @@
             android:layout_marginTop="64dp"
             android:id="@+id/username"
             android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@android:color/white"
+            android:textColor="@color/text"
             android:text="@string/app_name"/>
 
 
@@ -24,42 +24,47 @@
     <EditText
             android:layout_width="match_parent"
             android:layout_marginTop="64dp"
-            android:layout_height="40dp"
+            android:layout_height="48sp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:padding="5dip"
             android:textAlignment="center"
             android:hint="@string/username"
+            android:fontFamily="sans-serif-condensed-light"
+            android:elevation="10dp"
+            android:padding="5dp"
             android:background="@drawable/border_edit_text" />
     <EditText
             android:layout_width="match_parent"
             android:layout_marginTop="32dp"
-            android:layout_height="40dp"
+            android:layout_height="48sp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:padding="5dip"
             android:textAlignment="center"
             android:hint="@string/email"
+            android:fontFamily="sans-serif-condensed-light"
             android:background="@drawable/border_edit_text" />
     <EditText
             android:layout_width="match_parent"
             android:layout_marginTop="32dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:padding="5dip"
             android:textAlignment="center"
             android:hint="@string/password"
+            android:fontFamily="sans-serif-condensed-light"
             android:background="@drawable/border_edit_text" />
     <EditText
             android:layout_width="match_parent"
             android:layout_marginTop="32dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:padding="5dip"
             android:textAlignment="center"
             android:hint="@string/confirm_password"
+            android:fontFamily="sans-serif-condensed-light"
             android:background="@drawable/border_edit_text" />
 
     <Button
@@ -70,9 +75,10 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/soft_button"
-            android:elevation="20dp"
+            android:elevation="10dp"
             android:hint="@string/register"
-            android:textColorHint="@android:color/white" />
+            android:fontFamily="sans-serif-condensed-light"
+            android:textColorHint="@android:color/white"
+            android:background="@drawable/button"/>
 
 </LinearLayout>

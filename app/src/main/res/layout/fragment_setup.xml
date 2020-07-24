@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_centerInParent="true"
     tools:context=".fragment.SetupFragment">
@@ -17,8 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/secondLinear"
-        android:layout_centerInParent="true"
-        android:background="@color/colorPrimary">
+        android:layout_centerInParent="true">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +36,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="124dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/placeholder"
                     android:textSize="16dp"
                     android:text="@string/title"/>
 
@@ -48,7 +46,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/placeholder"
                     android:textSize="16dp"
                     android:text="@string/date"/>
 
@@ -58,7 +56,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/placeholder"
                     android:textSize="16dp"
                     android:text="@string/starttime"/>
 
@@ -68,7 +66,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/placeholder"
                     android:textSize="16dp"
                     android:text="@string/latetime"/>
 
@@ -102,7 +100,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/text"
                     android:textSize="16dp"
                     android:text="@string/date"/>
 
@@ -113,7 +111,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/text"
                     android:textSize="16dp"
                     android:text="@string/starttime"/>
 
@@ -124,7 +122,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/text"
                     android:textSize="16dp"
                     android:text="@string/latetime"/>
 
@@ -150,8 +148,8 @@
         android:layout_centerInParent="true"
         android:layout_below="@id/secondLinear"
         android:layout_marginTop="12dp"
-        android:background="@drawable/soft_button"
-        android:textColor="@color/text"
+        android:background="@drawable/button"
+        android:textColor="@android:color/white"
         android:text="@string/create" />
 
 

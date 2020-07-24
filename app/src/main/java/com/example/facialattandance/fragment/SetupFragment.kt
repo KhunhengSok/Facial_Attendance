@@ -111,7 +111,6 @@ class SetupFragment :  Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
         c[Calendar.YEAR] = year
         c[Calendar.MONTH] = month
         c[Calendar.DAY_OF_MONTH] = dayOfMonth
-        val i = c.getTime()
         val currentDate: String = simpleDateFormat.format(c.getTime())
         dates = Integer.toString(dayOfMonth)
         months = Integer.toString(month)
@@ -125,7 +124,6 @@ class SetupFragment :  Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
         val simpleDateFormat = SimpleDateFormat(pattern)
         c[Calendar.HOUR_OF_DAY] = hourOfDay
         c[Calendar.MINUTE] = minute
-        val i = c.getTime()
         val currentTime: String = simpleDateFormat.format(c.getTime())
         hour = Integer.toString(hourOfDay)
         minutePicker = Integer.toString(minute)

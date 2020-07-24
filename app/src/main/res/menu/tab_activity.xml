@@ -5,20 +5,17 @@
     <item
         android:id="@+id/mnu_home"
         android:icon="@drawable/ic_home"
-        android:iconTint="@color/button"
         android:title="@string/home" />
 
 
     <item
         android:id="@+id/mnu_setup"
         android:icon="@drawable/ic_clock"
-        android:iconTint="@color/button"
         android:title="@string/setup"
         />
 
     <item
         android:id="@+id/mnu_camera"
         android:icon="@drawable/ic_profile"
-        android:iconTint="@color/button"
         android:title="@string/camera"/>
 </menu>

@@ -8,6 +8,7 @@ import com.example.facialattandance.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+    val PERMISSION_FINISH = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -17,9 +18,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun init() {
         loginButton.setOnClickListener(View.OnClickListener {
-            //ToDo
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
+            finish()
         })
     }
 }
