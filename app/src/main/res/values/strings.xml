@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Facial Attandance</string>
+    <string name="app_name">Facial Attendance</string>
     <string name="welcome">Welcome to</string>
     <string name="slogan">Your record is our job</string>
     <string name="letgo">Let\'s go</string>
@@ -31,8 +31,8 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="capture_button">Capture</string>
     <string name="total">Total Attendees</string>
     <string name="happened">Happend on</string>
     <string name="meeting">Meeting</string>
-
 </resources>

@@ -65,6 +65,7 @@ class MeetingFragment : Fragment() {
     }
 
     private fun showLoading(state: Boolean) {
+        Log.d(TAG, "showLoading: "+  progress_bar_meeting.visibility)
         if (state) {
             progress_bar_meeting.setVisibility(View.VISIBLE)
             recycler_view_meeting.setVisibility(View.INVISIBLE)
@@ -72,6 +73,10 @@ class MeetingFragment : Fragment() {
             progress_bar_meeting.setVisibility(View.INVISIBLE)
             recycler_view_meeting.setVisibility(View.VISIBLE)
         }
+    }
+
+    companion object{
+        val TAG = "MeetingFragment"
     }
 
 }

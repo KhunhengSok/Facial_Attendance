@@ -68,16 +68,16 @@ class LoginActivity : AppCompatActivity() {
                             val username = jsonObject.getString("username")
 //                            Toast.makeText(this, token, Toast.LENGTH_SHORT).show()
                             if (username == usernameEdit.text.toString()) {
-                                startActivity(intent)
                                 finish()
+                                startActivity(intent)
                             }
                         } catch (e: JSONException) {
                             e.printStackTrace()
-                            Toast.makeText(this, "Register Error!$e", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Login Error!$e", Toast.LENGTH_SHORT).show()
                         }
                     },
                     Response.ErrorListener { error ->
-                        Toast.makeText(this, "Register Error!$error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Login Error!$error", Toast.LENGTH_SHORT).show()
                     }) {
 
 
