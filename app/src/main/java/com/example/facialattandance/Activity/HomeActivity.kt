@@ -18,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Show ProductsFragment as default
-        showFragment(HomeFragment())
+        showFragment(MeetingFragment())
 
         // Handle event when user clicks on Bottom Nav items
         bottomNav.setOnNavigationItemSelectedListener {
@@ -29,8 +29,8 @@ class HomeActivity : AppCompatActivity() {
                     showFragment(CameraFragment())
                 }
                 R.id.mnu_home -> {
-                    supportActionBar!!.setTitle(R.string.home)
-                    showFragment(HomeFragment())
+                    supportActionBar!!.setTitle(R.string.meeting)
+                    showFragment(MeetingFragment())
                 }
                 R.id.mnu_setup -> {
                     supportActionBar!!.setTitle(R.string.setup)

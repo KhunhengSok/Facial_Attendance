@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12sp"
+    android:background="@drawable/meeting_btn">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Title"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="32sp"
+        android:padding="12sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/total"
+        android:text="Total "
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="24sp"
+        android:layout_below="@id/title"
+        android:paddingLeft="12sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/attendee"
+        android:text="20"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="24sp"
+        android:layout_below="@id/total"
+        android:paddingLeft="12sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:text="25 July"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="24sp"
+        android:paddingRight="12sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/Showdate"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Showdate"
+        android:text="@string/happened"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="24sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/title"
+        android:paddingRight="12sp"
+        />
+
+</RelativeLayout>

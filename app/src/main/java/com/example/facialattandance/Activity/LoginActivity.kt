@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
     private fun init() {
         loginButton.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
-//            finish()
 
 //            val request: RequestQueue = Volley.newRequestQueue(this)
             var username = usernameEdit.text.toString()
@@ -67,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                             val jsonObject = JSONObject(response)
                             val token = jsonObject.getString("token")
                             val username = jsonObject.getString("username")
-                            Toast.makeText(this, token, Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this, token, Toast.LENGTH_SHORT).show()
                             if (username == usernameEdit.text.toString()) {
                                 startActivity(intent)
                                 finish()
