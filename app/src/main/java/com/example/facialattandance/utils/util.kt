@@ -17,7 +17,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.Companion.TAG
-import com.example.facialattandance.utils.cosineSimilarity
+//import com.example.facialattandance.utils.cosineSimilarity
 import com.google.android.gms.vision.face.Face
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.face.FirebaseVisionFace

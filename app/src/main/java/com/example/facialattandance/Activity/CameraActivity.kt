@@ -29,7 +29,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.FaceBoxListener
 import com.example.facialattandance.frame.FaceBox
-import com.example.facialattandance.utils.FaceEmbedding
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
@@ -43,6 +42,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import com.example.facialattandance.R
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer
+import com.example.facialattandance.utils.FaceEmbedding
 import com.google.firebase.FirebaseApp
 
 typealias LumaListener = (luma: Double) -> Unit
