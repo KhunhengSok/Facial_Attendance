@@ -9,15 +9,20 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.facialattandance.Activity.CameraActivity
+import androidx.fragment.app.Fragment
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.example.facialattandance.Model.Meeting
 import com.example.facialattandance.R
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_add_employee.*
 
 class AddEmployeeFragment : Fragment() {
@@ -34,6 +39,7 @@ class AddEmployeeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadMeetingToSpinner()
         image.setOnClickListener {
             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 if (ActivityCompat.checkSelfPermission(context!!, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
@@ -83,5 +89,27 @@ class AddEmployeeFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK){
             image.setImageURI(image_uri)
         }
+    }
+
+    private fun loadMeetingToSpinner() {
+        var i = 0
+        val meetingTittle = ArrayList<String?>()
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "http://10.0.2.2:3000/meeting"
+
+        val request = JsonArrayRequest(url, Response.Listener { response ->
+            val gson = Gson()
+            val meeting = gson.fromJson(response.toString(), Array<Meeting>::class.java)
+            while(i < meeting.size) {
+                meetingTittle.add(meeting[i].title)
+                i++
+            }
+            var adaptor = ArrayAdapter<String>(context!!,R.layout.support_simple_spinner_dropdown_item,meetingTittle)
+            spinnerMeeting.adapter = adaptor
+        }, Response.ErrorListener { error ->
+
+        })
+
+        requestQueue.add(request)
     }
 }
