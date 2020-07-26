@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".Activity.ProfileActivity">
 
     <LinearLayout
@@ -44,21 +43,18 @@
                 android:layout_height="wrap_content"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
                 android:text="@string/username"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
                 android:text="@string/department"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
                 android:text="@string/position"/>
 
         </LinearLayout>
@@ -75,7 +71,6 @@
                 android:id="@+id/name"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
                 android:text="@string/username"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -83,7 +78,6 @@
                 android:id="@+id/department"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
                 android:text="@string/department"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -91,8 +85,7 @@
                 android:id="@+id/position"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
-                android:text="@string/department"/>
+                android:text="@string/position"/>
 
 
         </LinearLayout>

@@ -26,6 +26,8 @@ public class EmployeeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private String endpoint;
+    private String ENDPOINT = "1000";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class EmployeeActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         Intent intent = getIntent();
-        endpoint = intent.getStringExtra("types");
+        endpoint = intent.getStringExtra("1000");
         loadEmployee(endpoint);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -49,19 +51,14 @@ public class EmployeeActivity extends AppCompatActivity {
         // Show progress bar and hide recycler view
         showLoading(true);
 
-        // Initialize request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        // Initialize request
-        String url = "http://10.0.2.2:3000/" + endpoint;
+        String url = "http://10.0.2.2:3000/bestEmployee/";
 
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
                 showLoading(false);
-
-                // Deserialize json using gson library
                 Gson gson = new Gson();
                 Employee[] employees = gson.fromJson(response.toString(), Employee[].class);
                 EmployeeAdaptor adapter = new EmployeeAdaptor(employees);
