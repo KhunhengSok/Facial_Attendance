@@ -65,7 +65,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
     //create createclassifer function
     //create processimage function to getface embedding
-    //optimze pause, resume, stop function
+    //optimize pause, resume, stop function
 
 
     private var preview: Preview? = null

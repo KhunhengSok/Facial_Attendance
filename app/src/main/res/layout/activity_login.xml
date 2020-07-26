@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -8,55 +9,80 @@
     android:background="@color/colorBackground"
     tools:context=".Activity.LoginActivity">
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:textSize="32dp"
-    android:layout_marginTop="64dp"
-    android:id="@+id/username"
-    android:fontFamily="sans-serif-condensed-light"
-    android:textColor="@android:color/white"
-    android:text="@string/app_name"/>
-
-
-    <EditText
-        android:inputType="textPersonName"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_marginTop="64dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:padding="5dip"
-        android:id="@+id/usernameEdit"
-        android:textAlignment="center"
-        android:hint="@string/username"
-        android:background="@drawable/border_edit_text" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:inputType="textPassword"
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="32dp"
+                android:layout_marginTop="64dp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@android:color/white"
+                android:text="@string/app_name"/>
+
+
+        <EditText
+                android:inputType="textPersonName"
+                android:layout_width="match_parent"
+                android:layout_marginTop="64dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:padding="5dip"
+                android:id="@+id/usernameEdit"
+                android:textAlignment="center"
+                android:hint="@string/username"
+                android:background="@drawable/border_edit_text" />
+
+        <EditText
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_marginTop="32dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:padding="5dip"
+                android:textAlignment="center"
+                android:id="@+id/passwordEdit"
+                android:hint="@string/password"
+                android:background="@drawable/border_edit_text" />
+
+        <Button
+                android:id="@+id/loginButton"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/soft_button"
+                android:elevation="20dp"
+                android:hint="@string/login"
+                android:textColorHint="@android:color/white" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/blurBackground"
         android:layout_width="match_parent"
-        android:layout_marginTop="32dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:padding="5dip"
-        android:textAlignment="center"
-        android:id="@+id/passwordEdit"
-        android:hint="@string/password"
-        android:background="@drawable/border_edit_text" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:alpha="0.5"
+        android:visibility="invisible"
+        android:orientation="horizontal" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="115dp"
+    <ProgressBar
+        android:id="@+id/loginProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
         android:layout_gravity="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/soft_button"
-        android:elevation="20dp"
-        android:hint="@string/login"
-        android:textColorHint="@android:color/white" />
-
-</LinearLayout>
+        android:visibility="visible"
+            />
+</FrameLayout>

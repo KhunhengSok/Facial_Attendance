@@ -15,7 +15,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+<<<<<<< HEAD
 <!--        SplashScreenActivity-->
+=======
+
+>>>>>>> a8d778506f6139ca5824c9dbefd7c91185469359
         <activity android:name=".Activity.CameraActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
