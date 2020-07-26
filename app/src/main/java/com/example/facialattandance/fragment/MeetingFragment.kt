@@ -1,6 +1,5 @@
-package com.example.facialattandance.Activity
+package com.example.facialattandance.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import com.example.facialattandance.Model.Employee
 import com.example.facialattandance.Model.Meeting
 import com.example.facialattandance.R
-import com.example.facialattandance.adaptor.EmployeeAdaptor
 import com.example.facialattandance.adaptor.MeetingAdaptor
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_meeting.*
@@ -24,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_meeting.*
 
 class MeetingFragment : Fragment() {
 
+    val URL_HOST = "https://face-attendance-api.herokuapp.com/api/event/"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_meeting, container, false)

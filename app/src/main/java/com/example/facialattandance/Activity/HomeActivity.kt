@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.facialattandance.R
+import com.example.facialattandance.fragment.AddEmployeeFragment
 import com.example.facialattandance.fragment.CameraFragment
-import com.example.facialattandance.fragment.HomeFragment
+import com.example.facialattandance.fragment.MeetingFragment
 import com.example.facialattandance.fragment.SetupFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -31,6 +32,10 @@ class HomeActivity : AppCompatActivity() {
                 R.id.mnu_home -> {
                     supportActionBar!!.setTitle(R.string.meeting)
                     showFragment(MeetingFragment())
+                }
+                R.id.mnu_attendee -> {
+                    supportActionBar!!.setTitle(R.string.attendee)
+                    showFragment(AddEmployeeFragment())
                 }
                 R.id.mnu_setup -> {
                     supportActionBar!!.setTitle(R.string.setup)

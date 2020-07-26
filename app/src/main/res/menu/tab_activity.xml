@@ -15,6 +15,11 @@
         />
 
     <item
+        android:id="@+id/mnu_attendee"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/attendee"/>
+
+    <item
         android:id="@+id/mnu_camera"
         android:icon="@drawable/ic_profile"
         android:title="@string/camera"/>

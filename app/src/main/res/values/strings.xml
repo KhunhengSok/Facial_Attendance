@@ -35,4 +35,5 @@
     <string name="total">Total Attendees</string>
     <string name="happened">Happend on</string>
     <string name="meeting">Meeting</string>
+    <string name="attendee">Attendee</string>
 </resources>

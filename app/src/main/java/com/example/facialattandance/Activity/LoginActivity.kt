@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val LOGIN_URL = HOST_URL + "api/account/login"
-    val PERMISSION_FINISH = false
     var requestQueue:RequestQueue ?= null
     private var isLoading  = false
 
@@ -59,9 +58,7 @@ class LoginActivity : AppCompatActivity() {
                         run {
                             try {
                                 Log.d(TAG, "init: response")
-
                                 saveUser(response)
-
                                 val jsonObject = response
                                 val token = jsonObject.getString("token")
                                 val username = jsonObject.getString("username")

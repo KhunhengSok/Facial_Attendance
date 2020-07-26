@@ -14,11 +14,7 @@
         android:id="@+id/scan_face"
         android:text="scan"
         />
-
-
-
-
- />
+    />
 
 
 </RelativeLayout>
