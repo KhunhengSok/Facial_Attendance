@@ -36,4 +36,6 @@
     <string name="happened">Happend on</string>
     <string name="meeting">Meeting</string>
     <string name="attendee">Attendee</string>
+    <string name="employ_date">Employ Date</string>
+    <string name="birth_of_date">Birth of Date</string>
 </resources>

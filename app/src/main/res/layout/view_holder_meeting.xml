@@ -3,8 +3,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12sp"
+    android:layout_margin="3dp"
+    android:padding="15dp"
     android:background="@drawable/meeting_btn">
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,7 +15,6 @@
         android:text="Title"
         android:fontFamily="sans-serif-condensed-light"
         android:textSize="32sp"
-        android:padding="12sp"
         />
 
     <TextView
@@ -23,7 +25,6 @@
         android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
         android:layout_below="@id/title"
-        android:paddingLeft="12sp"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +34,6 @@
         android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
         android:layout_below="@id/total"
-        android:paddingLeft="12sp"
         />
 
     <TextView
@@ -43,7 +43,6 @@
         android:text="25 July"
         android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
-        android:paddingRight="12sp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/Showdate"
         />
@@ -56,7 +55,6 @@
         android:textSize="24sp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/title"
-        android:paddingRight="12sp"
         />
 
 </RelativeLayout>

@@ -12,17 +12,15 @@
         android:background="@color/colorBackground">
         
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:id="@+id/progress_bar_meeting"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_meeting"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-
     </FrameLayout>
 
 </LinearLayout>

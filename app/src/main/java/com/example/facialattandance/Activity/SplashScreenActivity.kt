@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.facialattandance.Model.Department
 import com.example.facialattandance.Model.User
 import com.example.facialattandance.R
 import com.example.facialattandance.utils.USER_SHARED_PREFERENCE_KEY
@@ -50,6 +51,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     companion object{
         var currentUser:User ?= null
+        var currentDepartment: Department?=null
         val TAG = "SplashScreenActivity"
         var userSharedPreference:SharedPreferences ?= null
 
@@ -79,7 +81,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             val userJson = userSharedPreference!!.getString(USER_KEY, "")
             Log.d(TAG, "retrieveUser: ")
-            Log.d(TAG, "retrieveUser: ${userJson}")
+            Log.d(TAG, "retrieveUser: $userJson")
 
             if( userJson!!.isBlank()){
                 Log.d(TAG, "retrieveUser: null")

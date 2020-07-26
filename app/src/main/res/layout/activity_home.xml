@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Activity.HomeActivity">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,7 +21,19 @@
         android:layout_below="@id/toolbar"
         android:layout_above="@id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
+
+<!--        <Button-->
+<!--            android:id="@+id/logoutButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Log out test"-->
+<!--            android:textSize="20sp"-->
+<!--            android:background="@android:color/holo_red_dark"-->
+<!--            android:layout_gravity="center"-->
+<!--        />-->
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"

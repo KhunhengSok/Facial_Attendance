@@ -1,7 +1,9 @@
 package com.example.facialattandance.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.facialattandance.R
 import com.example.facialattandance.fragment.AddEmployeeFragment
@@ -17,6 +19,16 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         setSupportActionBar(toolbar)
+
+//        logoutButton.setOnClickListener(
+//            View.OnClickListener {
+//                view ->
+//                    run {
+//                        SplashScreenActivity.deleteCurrentUser()
+//                        startActivity(Intent(baseContext, LoginActivity::class.java))
+//                    }
+//            }
+//        )
 
         // Show ProductsFragment as default
         showFragment(MeetingFragment())

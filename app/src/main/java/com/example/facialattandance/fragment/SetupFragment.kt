@@ -86,19 +86,13 @@ class SetupFragment :  Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
             var late = latetime.text.toString()
             var date = startDate.text.toString()
             if (title.equals("Title") || start.equals("Starting Time")|| late.equals("Late Time") || date.equals("Date")) {
-                Toast.makeText(context!!, "Pls Complete requirement", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context!!, "Please Complete requirement", Toast.LENGTH_SHORT).show()
 //                return@setOnClickListener;
             } else {
                 val time = AttandaceTime(title, date, start, late)
                 createSlot(title, date, start, late)
             }
-
-
         }
-
-
-
-
     }
 
 
@@ -170,9 +164,6 @@ class SetupFragment :  Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
                 params2.put("lateTime", late)
                 return JSONObject(params2 as Map<*, *>).toString().toByteArray()
             }
-
-
-
         }
         request!!.add(mStringRequest!!)
     }

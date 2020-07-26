@@ -5,12 +5,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
     <androidx.camera.view.PreviewView
             android:id="@+id/preview_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
     </androidx.camera.view.PreviewView>
 
     <com.example.facialattandance.frame.FaceBox
@@ -31,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-            android:id="@+id/frontBackCameraButton"
+            android:id="@+id/cameraFacingSwitchButton"
             android:layout_width="@dimen/capture_button_margin"
             android:layout_height="@dimen/capture_button_margin"
             android:layout_marginBottom="@dimen/capture_button_margin"

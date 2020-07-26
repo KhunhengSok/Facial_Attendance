@@ -15,7 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.facialattandance.Activity.SplashScreenActivity.Companion.saveUser
 import com.example.facialattandance.R
-import com.example.facialattandance.utils.HOST_URL
+import com.example.facialattandance.utils.HOSTING_URL
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,7 +26,8 @@ class LoginActivity : AppCompatActivity() {
         val TAG = "LoginActivity"
     }
 
-    private val LOGIN_URL = HOST_URL + "api/account/login"
+    private val LOGIN_URL = HOSTING_URL + "api/account/login"
+    val PERMISSION_FINISH = false
     var requestQueue:RequestQueue ?= null
     private var isLoading  = false
 
@@ -58,7 +59,9 @@ class LoginActivity : AppCompatActivity() {
                         run {
                             try {
                                 Log.d(TAG, "init: response")
+
                                 saveUser(response)
+
                                 val jsonObject = response
                                 val token = jsonObject.getString("token")
                                 val username = jsonObject.getString("username")

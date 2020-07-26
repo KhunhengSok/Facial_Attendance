@@ -91,6 +91,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
     private var handler:Handler ?= null
     var requestQueue:RequestQueue ?= null
 
+    private var cameraFacing:Int = -1
 
     var mStorageRef = FirebaseStorage.getInstance().getReference("image/")
 
@@ -123,6 +124,17 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         handlerThread?.start()
         handler = Handler( handlerThread?.looper)
         requestQueue = Volley.newRequestQueue(this)
+
+        cameraFacing = CameraSelector.LENS_FACING_BACK
+
+        cameraFacingSwitchButton.setOnClickListener(View.OnClickListener {
+            cameraFacing = if(cameraFacing == CameraSelector.LENS_FACING_BACK){
+                CameraSelector.LENS_FACING_FRONT
+            }else{
+                CameraSelector.LENS_FACING_BACK
+            }
+
+        })
     }
 
     private fun getOutputDirectory(): File {
@@ -215,11 +227,8 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                 Log.e(TAG, "uploadImage: $it.message" )
             }.addOnProgressListener {
                 var percentage = (it.bytesTransferred / it.totalByteCount * 100 ).toInt()
-
             }
         }
-
-
     }
 
     @SuppressLint("RestrictedApi", "UnsafeExperimentalUsageError")
@@ -265,8 +274,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                 }
 
 
-        cameraSelector =
-                CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
+        cameraSelector = CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
         imagecapture =
                 ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                         .build()
@@ -292,12 +300,10 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
             }
         }, ContextCompat.getMainExecutor(this))
         Log.d(TAG, "Preview view: ${preview_view.width} $preview_view.height")
-
     }
 
     override fun onPause() {
         super.onPause()
-
     }
 
     private fun takePhoto() {

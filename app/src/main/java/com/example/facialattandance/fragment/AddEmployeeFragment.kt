@@ -101,7 +101,7 @@ class AddEmployeeFragment : Fragment() {
             val gson = Gson()
             val meeting = gson.fromJson(response.toString(), Array<Meeting>::class.java)
             while(i < meeting.size) {
-                meetingTittle.add(meeting[i].title)
+                meetingTittle.add(meeting[i].name)
                 i++
             }
             var adaptor = ArrayAdapter<String>(context!!,R.layout.support_simple_spinner_dropdown_item,meetingTittle)

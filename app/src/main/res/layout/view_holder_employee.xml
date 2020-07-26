@@ -4,16 +4,28 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="2dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
     android:background="@drawable/soft_button">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/img_profile"
-        android:layout_width="200dp"
-        android:layout_height="128dp"
-        app:placeholderImage="@drawable/ic_image_black_24dp"
-        app:roundedCornerRadius="2dp"
-        />
+<!--    <com.facebook.drawee.view.SimpleDraweeView-->
+<!--        android:id="@+id/img_profile"-->
+<!--        android:layout_width="128dp"-->
+<!--        android:layout_height="128dp"-->
+<!--        app:placeholderImage="@drawable/ic_image_black_24dp"-->
+<!--        app:roundedCornerRadius="2dp"-->
+<!--        />-->
+    <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+
+            android:layout_marginRight="20dp"/>
+<!--            app:placeholderImage="@drawable/ic_image_black_24dp"-->
+<!--            app:roundedCornerRadius="2dp"-->
+<!--            />-->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
