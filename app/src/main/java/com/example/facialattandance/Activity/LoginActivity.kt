@@ -50,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
 
             if( !username.isBlank() && !password.isBlank() && !isLoading){
                 showLoading(true)
-
                 val requestBody = JSONObject()
                 requestBody.put("username", username)
                 requestBody.put("password", password)
