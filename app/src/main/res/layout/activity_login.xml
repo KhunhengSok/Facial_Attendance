@@ -65,7 +65,6 @@
                 android:elevation="20dp"
                 android:hint="@string/login"
                 android:textColorHint="@android:color/white" />
-
     </LinearLayout>
 
 
