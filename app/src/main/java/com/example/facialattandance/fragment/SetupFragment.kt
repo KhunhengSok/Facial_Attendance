@@ -149,7 +149,7 @@ class SetupFragment :  Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
 //            val attandaceTimeJson = gson.toJson(attandaceTime)
 
         }, Response.ErrorListener { error ->
-            Log.i("This is the error", "Error :" + error.toString())
+            Log.i("This is the error", "Error :$error")
 //            Toast.makeText(context!!, "Please make sure you enter correct password and username", Toast.LENGTH_SHORT).show()
         }) {
             override fun getBodyContentType(): String {

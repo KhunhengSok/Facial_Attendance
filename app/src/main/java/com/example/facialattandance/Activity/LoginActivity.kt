@@ -8,14 +8,16 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
+import com.android.volley.*
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.facialattandance.Activity.SplashScreenActivity.Companion.saveDepartment
 import com.example.facialattandance.Activity.SplashScreenActivity.Companion.saveUser
+import com.example.facialattandance.Model.Department
 import com.example.facialattandance.R
 import com.example.facialattandance.utils.HOSTING_URL
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -43,7 +45,6 @@ class LoginActivity : AppCompatActivity() {
         requestQueue = Volley.newRequestQueue(this)
         loginButton.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "init: Log in button clicked")
-            val intent = Intent(applicationContext, HomeActivity::class.java)
 
             var username = usernameEdit.text.toString()
             var password = passwordEdit.text.toString()
@@ -61,15 +62,14 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d(TAG, "init: response")
 
                                 saveUser(response)
+                                Log.d(TAG, "init: id is ${response.getInt("id")}")
+                                loadDepartment(response.getInt("id"))
+                                /*val username = response.getString("username")
 
-                                val jsonObject = response
-                                val token = jsonObject.getString("token")
-                                val username = jsonObject.getString("username")
-                                //                            Toast.makeText(this, token, Toast.LENGTH_SHORT).show()
                                 if (username == usernameEdit.text.toString()) {
                                     finish()
                                     startActivity(intent)
-                                }
+                                }*/
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                                 Toast.makeText(this, "Login Error!$e", Toast.LENGTH_SHORT).show()
@@ -78,7 +78,8 @@ class LoginActivity : AppCompatActivity() {
 
                         }
                 }, Response.ErrorListener {error ->
-                    Toast.makeText(this, "Login Error!$error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Username and password not matched.", Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "init: error ${error}")
                     showLoading(false)
 
                 } )
@@ -109,5 +110,47 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+
+    fun loadDepartment(userId:Int){
+        val Get_Department_Url = HOSTING_URL + "api/account/$userId/organization"
+
+        Log.d(SplashScreenActivity.TAG, "getDepartment")
+        val gson = Gson()
+        Log.d(SplashScreenActivity.TAG, "getDepartment: url: $Get_Department_Url")
+        val request = object: JsonArrayRequest(Request.Method.GET, Get_Department_Url, null, Response.Listener {
+            response ->
+                run {
+                    Log.d(SplashScreenActivity.TAG, "getDepartment: response")
+                    val departments = gson.fromJson(response.toString(), Array<Department>::class.java)
+                    SplashScreenActivity.currentDepartment = departments[0]
+                    saveDepartment(departments[0])
+
+                    Log.d(TAG, "getDepartment: assign department")
+
+                    val intent = Intent(applicationContext, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+        }, Response.ErrorListener {
+            error ->
+                run {
+                    Log.d(TAG, "getDepartment: ${error.message}")
+                }
+        }){
+            override fun getHeaders(): MutableMap<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                if(SplashScreenActivity.currentUser == null){
+                    SplashScreenActivity.currentUser = SplashScreenActivity.retrieveUser()
+                }
+                Log.d(EmployeeActivity.TAG, "getHeaders: token: ${SplashScreenActivity.currentUser!!.token}")
+                params.put("Content-Type", "application/json")
+                params.put("Authorization", "Bearer " + SplashScreenActivity.currentUser!!.token)
+                return params
+            }
+        }
+        requestQueue?.add(request)
+
+
+    }
 
 }

@@ -28,7 +28,7 @@ class EmployeeActivity : AppCompatActivity() {
     fun init(){
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recycler_view!!.layoutManager = layoutManager
-        Employee_Url = HOSTING_URL + "api/organization/${organizationId}/employees"
+        Employee_Url = HOSTING_URL + "api/organization/${SplashScreenActivity.currentDepartment!!.id}/employees"
         Log.d(TAG, "init: ${Employee_Url}")
         requestQueue = Volley.newRequestQueue(this)
     }

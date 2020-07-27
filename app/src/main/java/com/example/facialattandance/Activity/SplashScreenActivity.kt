@@ -7,29 +7,40 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.facialattandance.Model.Department
 import com.example.facialattandance.Model.User
 import com.example.facialattandance.R
-import com.example.facialattandance.utils.USER_SHARED_PREFERENCE_KEY
-import com.example.facialattandance.utils.SPLASH_TIME_OUT
-import com.example.facialattandance.utils.USER_KEY
+import com.example.facialattandance.utils.*
 import com.google.gson.Gson
 import org.json.JSONObject
 
 
 class SplashScreenActivity : AppCompatActivity() {
+    private var requestQueue:RequestQueue ?= null
+    var Get_Department_Url:String ?=null
 
     fun init(){
-        userSharedPreference = getSharedPreferences(USER_SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
+//        val prefs = getSharedPreferences("isStarted", Context.MODE_PRIVATE)
+//        val isStarted = prefs.getBoolean("isStarted", false)
+        val isStarted = true
 
+        userSharedPreference = getSharedPreferences(USER_SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
+        requestQueue = Volley.newRequestQueue(this)
         currentUser = retrieveUser()
-        val prefs = getSharedPreferences("isStarted", Context.MODE_PRIVATE)
-        val isStarted = prefs.getBoolean("isStarted", false)
+        currentDepartment = retrieveDepartment()
 
         Handler().postDelayed({
             if(isStarted) {
                 if(currentUser != null){
                     Log.d(TAG, "init: current user is not null")
+                    Get_Department_Url = HOSTING_URL + "api/account/${currentUser!!.id}/organization"
+                    loadDepartment(currentUser!!.id)
+
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                 }else{
@@ -43,6 +54,42 @@ class SplashScreenActivity : AppCompatActivity() {
         }, SPLASH_TIME_OUT)
     }
 
+    fun loadDepartment(userId:Int){
+        Log.d(TAG, "getDepartment")
+        val gson = Gson()
+        Log.d(TAG, "getDepartment: url: $Get_Department_Url")
+        val request = object:JsonObjectRequest(Request.Method.GET, Get_Department_Url, null, Response.Listener {
+            response ->
+            run {
+                Log.d(TAG, "getDepartment: response")
+                val department = gson.fromJson(response.toString(), Department::class.java)
+                currentDepartment = department
+                
+                Log.d(TAG, "getDepartment: assign department")
+            }
+        }, Response.ErrorListener {
+            error ->
+            run {
+                Log.d(TAG, "getDepartment: ${error.message}")
+            }
+        }){
+            override fun getHeaders(): MutableMap<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                if(SplashScreenActivity.currentUser == null){
+                    SplashScreenActivity.currentUser = SplashScreenActivity.retrieveUser()
+                }
+                Log.d(EmployeeActivity.TAG, "getHeaders: token: ${SplashScreenActivity.currentUser!!.token}")
+                params.put("Content-Type", "application/json")
+                params.put("Authorization", "Bearer " + SplashScreenActivity.currentUser!!.token)
+                return params
+            }
+        }
+        requestQueue?.add(request)
+
+
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slash_screen)
@@ -54,6 +101,7 @@ class SplashScreenActivity : AppCompatActivity() {
         var currentDepartment: Department?=null
         val TAG = "SplashScreenActivity"
         var userSharedPreference:SharedPreferences ?= null
+
 
         fun saveUser(user: User){
             val gson = Gson()
@@ -76,6 +124,56 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
 
+
+        /*fun saveDepartment(department:JSONObject){
+            val gson  = Gson()
+            val editor = userSharedPreference!!.edit()
+            Log.d(TAG, "saveDepartment: ${department.toString()}")
+            editor.putString(DEPARTMENT_SHARED_PREFERENCE_KEY, department.toString())
+            if(editor.commit()){
+                Log.d(TAG, "saveDepartment: Saved department info to sharedpreferences.")
+            }else{
+                Log.d(TAG, "saveDepartment: Can not save the department info to sharedpreferences")
+            }
+        }*/
+
+        fun saveDepartment(department: Department){
+            val gson = Gson()
+            val departmentJson = gson.toJson(department)
+            val editor = userSharedPreference!!.edit()
+            Log.d(TAG, "saveDepartment: ${departmentJson.toString()}")
+            editor.putString(DEPARTMENT_SHARED_PREFERENCE_KEY, departmentJson.toString())
+            if(editor.commit()){
+                Log.d(TAG, "saveDepartment: Saved department info to sharedpreferences.")
+            }else{
+                Log.d(TAG, "saveDepartment: Can not save the department info to sharedpreferences")
+            }
+        }
+
+        fun retrieveDepartment(): Department?{
+            val gson = Gson()
+            val departmentJson = userSharedPreference!!.getString(DEPARTMENT_SHARED_PREFERENCE_KEY, "")
+            if (departmentJson!!.isBlank()){
+                Log.d(TAG, "retrieveDepartment: null")
+                return null
+            }else{
+                Log.d(TAG, "retrieveDepartment: non-null")
+                return gson.fromJson(departmentJson, Department::class.java)
+            }
+        }
+
+        fun removeCurrentDepartment(){
+            currentDepartment = null
+            val editor = userSharedPreference!!.edit()
+            editor.remove(DEPARTMENT_SHARED_PREFERENCE_KEY)
+            if(editor.commit()){
+                Log.d(TAG, "removeCurrentDepartment: removed")
+            }else{
+                Log.d(TAG, "removeCurrentDepartment: unable to removed")
+            }
+        }
+
+
         fun retrieveUser(): User? {
             val gson = Gson()
 
@@ -93,7 +191,7 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         }
 
-        fun deleteCurrentUser(){
+        fun removeCurrentUser(){
             currentUser = null
             val editor = userSharedPreference!!.edit()
             editor.remove(USER_KEY)

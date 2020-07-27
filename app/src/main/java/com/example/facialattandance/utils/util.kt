@@ -3,27 +3,23 @@ package com.example.facialattandance.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Context.CAMERA_SERVICE
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.RectF
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
-import android.media.Image
 import android.os.Build
 import android.util.Log
-import android.util.SparseArray
 import android.util.SparseIntArray
 import android.view.Surface
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.Companion.TAG
-//import com.example.facialattandance.utils.cosineSimilarity
-import com.google.android.gms.vision.face.Face
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
-import org.tensorflow.lite.support.image.TensorImage
-import java.lang.ref.WeakReference
-
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 fun drawRectangle(faces: List<FirebaseVisionFace>, bitmap: Bitmap,  recPaint: Paint){
@@ -97,6 +93,16 @@ fun getRotationCompensation(cameraId: String, activity: Activity, context: Conte
     }
     return result
 }
+
+fun capitalize(capString: String): String? {
+    val capBuffer = StringBuffer()
+    val capMatcher: Matcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(capString)
+    while (capMatcher.find()) {
+        capMatcher.appendReplacement(capBuffer, capMatcher.group(1).toUpperCase() + capMatcher.group(2).toLowerCase())
+    }
+    return capMatcher.appendTail(capBuffer).toString()
+}
+
 
 //fun convertImageToBitmap(image: Image, output:Array<Int>, cachedYuvImage: Array<Array<Byte>>){
 //    if(cachedYuvImage == null || cachedYuvImage.size != 3){

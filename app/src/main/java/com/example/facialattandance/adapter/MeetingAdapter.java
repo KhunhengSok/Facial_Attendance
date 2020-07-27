@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.facialattandance.Activity.EmployeeActivity;
 import com.example.facialattandance.Model.Meeting;
 import com.example.facialattandance.R;
+import com.example.facialattandance.utils.UtilKt;
 
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingViewHolder> {
@@ -32,7 +33,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.MeetingViewHolder holder, int position) {
         final Meeting meeting = meetings[position];
-        holder.title.setText(meeting.getName());
+        String name = meeting.getName();
+        name = UtilKt.capitalize(name);
+        holder.title.setText( name);
         Log.d(TAG, "onBindViewHolder: " + meeting.getAttendees().length);
         holder.attendee.setText(Integer.toString(meeting.getAttendees().length));
         holder.date.setText(meeting.getDate());

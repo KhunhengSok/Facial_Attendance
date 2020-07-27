@@ -9,12 +9,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.facialattandance.Activity.EmployeeActivity
 import com.example.facialattandance.Activity.SplashScreenActivity
+import com.example.facialattandance.Model.Department
 import com.example.facialattandance.Model.Meeting
 import com.example.facialattandance.R
 import com.example.facialattandance.adapter.MeetingAdapter
@@ -24,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_meeting.*
 
 
 class MeetingFragment : Fragment() {
-    private var organizationId = 1
+    private var organizationId = SplashScreenActivity.currentDepartment!!.id
     private var Meeting_Url = HOSTING_URL + "api/organization/$organizationId/events"
     private var requestQueue:RequestQueue ?= null
 
@@ -56,7 +59,7 @@ class MeetingFragment : Fragment() {
             val gson = Gson()
             val meeting = gson.fromJson(response.toString(), Array<Meeting>::class.java)
             val adapter = MeetingAdapter(meeting)
-            recycler_view_meeting.adapter = adapter
+            recycler_view_meeting?.adapter = adapter
         }, Response.ErrorListener { error ->
             Log.d(TAG, "loadMeeting: error")
             Log.d(TAG, "Load data error: " + error.message)
@@ -80,14 +83,15 @@ class MeetingFragment : Fragment() {
     }
 
     private fun showLoading(state: Boolean) {
-        Log.d(TAG, "showLoading: ")
+        Log.d(TAG, "showLoading: $state")
         if (state) {
             progress_bar_meeting.visibility = View.VISIBLE
             recycler_view_meeting.visibility = View.INVISIBLE
         } else {
-            progress_bar_meeting.visibility = View.INVISIBLE
-            recycler_view_meeting.visibility = View.VISIBLE
+            progress_bar_meeting?.visibility = View.INVISIBLE
+            recycler_view_meeting?.visibility = View.VISIBLE
         }
+
     }
 
     companion object{
