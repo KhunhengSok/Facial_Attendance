@@ -15,25 +15,26 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-
+        <activity android:name=".EventAttendeesActivity"></activity>
+        <activity android:name=".AddEmployeeActivity" />
         <activity android:name=".Activity.CameraActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.WelcomeNewUserActivity" />
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.EmployeeActivity" />
-
-        <!-- WelcomeNewUserActivity -->
+        <activity android:name=".Activity.EmployeeActivity" /> <!-- WelcomeNewUserActivity -->
         <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-<!---->
+                <!--  -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

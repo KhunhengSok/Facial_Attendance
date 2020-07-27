@@ -21,6 +21,16 @@
             android:id="@+id/recycler_view_meeting"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_new_meeting_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:icon="@drawable/ic_add"
+            android:layout_gravity="end|bottom|right"
+            android:text="Add Meeting"/>
+
     </FrameLayout>
 
 </LinearLayout>

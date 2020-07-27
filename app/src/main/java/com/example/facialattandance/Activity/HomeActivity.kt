@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.facialattandance.R
-import com.example.facialattandance.fragment.AddEmployeeFragment
-import com.example.facialattandance.fragment.CameraFragment
-import com.example.facialattandance.fragment.MeetingFragment
-import com.example.facialattandance.fragment.SetupFragment
+import com.example.facialattandance.fragment.*
+import com.example.facialattandance.utils.capitalize
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -35,26 +33,26 @@ class HomeActivity : AppCompatActivity() {
 
         // Handle event when user clicks on Bottom Nav items
         bottomNav.setOnNavigationItemSelectedListener {
-
             when (it.itemId) {
                 R.id.mnu_camera -> {
                     supportActionBar!!.setTitle(R.string.camera)
                     showFragment(CameraFragment())
                 }
                 R.id.mnu_home -> {
-                    supportActionBar!!.setTitle(R.string.meeting)
+//                    supportActionBar!!.setTitle(R.string.meeting)
+                    supportActionBar!!.setTitle(capitalize(SplashScreenActivity.currentDepartment?.name!!))
                     showFragment(MeetingFragment())
                 }
-                R.id.mnu_attendee -> {
-                    supportActionBar!!.setTitle(R.string.attendee)
-                    showFragment(AddEmployeeFragment())
+                R.id.mnu_employee -> {
+                    supportActionBar!!.setTitle(R.string.employee)
+//                    showFragment(AddEmployeeFragment())
+                    showFragment(EmployeeFragment())
                 }
                 R.id.mnu_setup -> {
                     supportActionBar!!.setTitle(R.string.setup)
                     showFragment(SetupFragment())
                 }
             }
-
             true
         }
     }

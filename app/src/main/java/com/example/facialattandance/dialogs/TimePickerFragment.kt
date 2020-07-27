@@ -1,4 +1,4 @@
-package com.example.facialattandance.Model
+package com.example.facialattandance.dialogs
 
 
 import android.app.Dialog

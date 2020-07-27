@@ -1,8 +1,9 @@
-package com.example.facialattandance.Model;
+package com.example.facialattandance.dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +22,8 @@ public class DatePickerFragment extends DialogFragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(),R.style.DialogTheme, (DatePickerDialog.OnDateSetListener) getTargetFragment(), year, month, day);
+        Log.d("DatePickerFragment", "onCreateDialog: "+ year +" " + month +" "+ day);
+        return new DatePickerDialog(getActivity(), R.style.DialogTheme, (DatePickerDialog.OnDateSetListener) getTargetFragment(), year, month, day);
     }
 
 

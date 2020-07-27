@@ -15,9 +15,14 @@
         />
 
     <item
-        android:id="@+id/mnu_attendee"
+        android:id="@+id/mnu_employee"
         android:icon="@drawable/ic_profile"
-        android:title="@string/attendee"/>
+        android:title="@string/employee"/>
+
+    <!--<item
+            android:id="@+id/mnu_attendee"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/attendee"/>-->
 
     <item
         android:id="@+id/mnu_camera"

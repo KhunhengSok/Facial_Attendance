@@ -19,16 +19,14 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_employee.*
 
 class EmployeeActivity : AppCompatActivity() {
-    private var endpoint: String? = null
     private var Employee_Url: String? = null
-    //ToDo
-    private var organizationId = 1
+    private var organizationId = SplashScreenActivity.currentDepartment!!.id
     private var requestQueue:RequestQueue ?=null
 
     fun init(){
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recycler_view!!.layoutManager = layoutManager
-        Employee_Url = HOSTING_URL + "api/organization/${SplashScreenActivity.currentDepartment!!.id}/employees"
+        Employee_Url = HOSTING_URL + "api/organization/$organizationId/employees"
         Log.d(TAG, "init: ${Employee_Url}")
         requestQueue = Volley.newRequestQueue(this)
     }
