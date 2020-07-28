@@ -88,9 +88,9 @@ class FaceDetectorImageAnalyzer(
         fun onFaceDetected(faces: List<FirebaseVisionFace>, bitmap: Bitmap, rotation:Int)
     }
 
-    interface FaceEmbeddingListener {
+   /* interface FaceEmbeddingListener {
         fun onFaceEmbeddingGenerated()
-    }
+    }*/
 
     private fun ByteBuffer.toByteArray(): ByteArray {
         rewind()    // Rewind the buffer to zero
@@ -204,7 +204,7 @@ class FaceDetectorImageAnalyzer(
         var body = JSONObject()
         body.put("face_embedding", JSONArray(face_embedding))
 //        Log.d(TAG, body.toString())
-        val url = activityContext.get()?.faceCompareUrl
+        val url = activityContext.get()?.JoinMeetingUrl
         val listener = Response.Listener<JSONObject> {
             Log.d(TAG, "Getting result")
             try{
@@ -317,7 +317,7 @@ class FaceDetectorImageAnalyzer(
                             croppedBitmap?.setPixels(arr, 0, boxWidth!!, 0, 0, boxWidth!!, boxHeight!!)
 //                            Log.d("Test", "Pixel" + croppedBitmap?.getPixel(10, 10).toString())
                             //TODOs: add handler
-                            if (!isFaceEmbedding.get()) {
+                            /*if (!isFaceEmbedding.get()) {
                                 activityContext.get()!!.runInBackground(Runnable {
                                     Log.d(TAG, "Face processing in background")
                                     isFaceEmbedding.set(true)
@@ -331,7 +331,7 @@ class FaceDetectorImageAnalyzer(
                                 })
                             } else {
                                 Log.d("TAG", "Processing face; Skip frame.")
-                            }
+                            }*/
                         }
                     }
 

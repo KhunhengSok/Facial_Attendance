@@ -6,21 +6,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.media.Image
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Size
+import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.MimeTypeMap
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.camera2.Camera2Config
@@ -53,15 +51,13 @@ import com.example.facialattandance.R
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer
 import com.example.facialattandance.utils.FaceEmbedding
 import com.example.facialattandance.utils.HOSTING_URL
-import com.google.android.gms.vision.face.FaceDetector
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
-import com.google.firebase.ml.vision.FirebaseVision
-import kotlinx.android.synthetic.main.activity_camera.blurBackground
-import kotlinx.android.synthetic.main.activity_camera.loginProgressBar
-import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONArray
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.math.log
 
 typealias LumaListener = (luma: Double) -> Unit
 
@@ -130,8 +126,11 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
     var mStorageRef = FirebaseStorage.getInstance().getReference("image/")
 
     //    public val faceCompareUrl = HOSTING_URL + "api/face_embedding/compare"
-    public val faceCompareUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/recognize"
-    public val faceEmbeddingRegisterUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/compare"
+    //ToDo
+    var eventId = 4
+    val JoinMeetingUrl = HOSTING_URL + "api/event/${eventId}/join"
+//    val JoinMeetingUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/recognize"
+    val FaceEmbeddingRegisterUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/create"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -193,6 +192,10 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
     private fun startScanningMode() {
         camera_capture_button.visibility = View.INVISIBLE
+//        val bottomSheetDialog = BottomSheetDialog(this)
+//        val view = LayoutInflater.from(this).inflate(R.id.bottom_sheet, null, false)
+//        bottomSheetDialog.setContentView(R.id.bottom_sheet)
+//        bottomSheetDialog.show()
         startCamera()
 
 
@@ -203,26 +206,34 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         if (ownerName.isNullOrBlank()) {
             return
         } else {
-            showLoading(false)
+            showLoading(true)
             uploadImage(Uri.fromFile(faceImage), ownerName, listener = { url ->
                 run {
                     val json = JSONObject()
                     json.put("owner", ownerName)
                     json.put("image_url", url)
-                    json.put("face_embedding", faceEmbedding)
+                    json.put("face_embedding", JSONArray(faceEmbedding))
+                    Log.d(TAG, "registerFace: ownername $ownerName")
                     Log.d(TAG, "registerFace: face_embedding's size ${faceEmbedding.size}")
                     Log.d(TAG, "registerFace: image url: $url")
+                    Log.d(TAG, "registerFace: $json")
+                    Log.d(TAG, "registerFace: endpoint $FaceEmbeddingRegisterUrl")
 
-                    val request = object : JsonObjectRequest(Request.Method.POST, faceEmbeddingRegisterUrl, json, Response.Listener {
-                        Log.d(TAG, "registerFace: registered")
-                        showToast("Register successfully", Toast.LENGTH_SHORT)
+                    val listener = Response.Listener<JSONObject> {
                         showLoading(false)
+                        showToast("Register successfully", Toast.LENGTH_SHORT)
                         finish()
-                    }, Response.ErrorListener {
+                    }
+
+                    val errorListener = Response.ErrorListener {
                         showLoading(false)
                         Log.d(TAG, "registerFace: error")
                         Log.d(TAG, "registerFace: ${it}")
-                    }) {
+                        showToast("Something Error", Toast.LENGTH_SHORT)
+
+                    }
+
+                    val request = object : JsonObjectRequest(Request.Method.POST, FaceEmbeddingRegisterUrl, json, listener, errorListener) {
                         override fun getHeaders(): MutableMap<String, String> {
                             val params: MutableMap<String, String> = HashMap()
                             if (SplashScreenActivity.currentUser == null) {
@@ -234,14 +245,53 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                             return params
                         }
                     }
-
                     requestQueue?.add(request)
 
                 }
             })
 
+        }
+    }
+
+    fun getCurrentTime():String{
+        val df = SimpleDateFormat("HH:mm:a")
+        val time = df.format(Calendar.getInstance().time)
+        return time
+    }
+
+    /*request : {
+        "attend_time": ""
+        "face_embedding": []
+
+    }*/
+    private fun makeJoinMeetingRequest(faceEmbedding: FloatArray) {
+        val current_time = getCurrentTime()
+
+        val json = JSONObject()
+        json.put("attend_time", current_time)
+        json.put("face_embedding", JSONArray(faceEmbedding) )
+        Log.d(TAG, "makeJoinMeetingRequest: request from $json")
+        val request = object : JsonObjectRequest(Request.Method.POST, JoinMeetingUrl, json,  Response.Listener {
+            Log.d(TAG, "makeJoinMeetingRequest: response")
+            Log.d(TAG, "makeJoinMeetingRequest: ${it}")
+            showToast("Attended", Toast.LENGTH_SHORT)
+        }, Response.ErrorListener {
+            Log.d(TAG, "makeJoinMeetingRequest: error")
+            Log.d(TAG, "makeJoinMeetingRequest: $it")
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                if (SplashScreenActivity.currentUser == null) {
+                    SplashScreenActivity.currentUser = SplashScreenActivity.retrieveUser()
+                }
+                Log.d(FaceDetectorImageAnalyzer.TAG, "getHeaders: token: ${SplashScreenActivity.currentUser!!.token}")
+                params.put("Content-Type", "application/json")
+                params.put("Authorization", "Bearer " + SplashScreenActivity.currentUser!!.token)
+                return params
+            }
 
         }
+        requestQueue?.add(request)
     }
 
     private fun getOutputDirectory(): File {
@@ -257,25 +307,6 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
     override fun getCameraXConfig(): CameraXConfig {
         return Camera2Config.defaultConfig()
-    }
-
-    private fun startConnect() {
-        val emulator_url = "10.0.0.15:8000"
-        val device_url = "http://192.168.1.60:5000/api/face_embedding/compare"
-
-        val jsonBody = JSONObject()
-//        var arr = FloatArray(2048, init= {i -> (-1..2).random().toFloat()})
-        jsonBody.put("face_embedding", "Hello world")
-        val request = JsonObjectRequest(Request.Method.POST, device_url, jsonBody,
-                Response.Listener {
-                    Log.d("Request", it.toString())
-                }, Response.ErrorListener {
-            var responseBody = String(it.networkResponse.data)
-            var json = JSONObject(responseBody)
-            Log.e("Request", "Error message: " + json.optString("message"))
-            Log.e("Request", it.toString())
-        })
-        requestQueue?.add(request)
     }
 
 
@@ -316,7 +347,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         if (uri.lastPathSegment != null) {
             Log.d(TAG, "uploadImage: Last path segment: ${uri.lastPathSegment}")
             fileRef.putFile(uri, metadata).addOnSuccessListener {
-                showToast("Success uploaded.", Toast.LENGTH_SHORT)
+//                showToast("Success uploaded.", Toast.LENGTH_SHORT)
                 Log.i(TAG, "Image upload successfully")
 
                 fileRef.downloadUrl.addOnSuccessListener {
@@ -337,15 +368,11 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         isLoading = loading
         Log.d(TAG, "showLoading: ${loading}")
         if (isLoading) {
-            loginProgressBar.visibility = ProgressBar.VISIBLE
-            blurBackground.visibility = LinearLayout.VISIBLE
-            usernameEdit?.isEnabled = false
-            passwordEdit?.isEnabled = false
+            blurForeground.visibility = View.VISIBLE
+            progress_bar.visibility = View.VISIBLE
         } else {
-            loginProgressBar.visibility = ProgressBar.INVISIBLE
-            blurBackground.visibility = LinearLayout.INVISIBLE
-            usernameEdit?.isEnabled = true
-            passwordEdit?.isEnabled = true
+            blurForeground.visibility = View.INVISIBLE
+            progress_bar.visibility = View.INVISIBLE
         }
 
     }
@@ -372,20 +399,24 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         }
         Log.d(TAG, displayMatrix.toString())
 
+        var frame = 0
         faceDetectorAnalyzer = ImageAnalysis.Builder()
                 .setTargetResolution(faceAnalyzeDimen)
                 .build().also { it ->
                     it.setAnalyzer(cameraExecutor, FaceDetectorImageAnalyzer(WeakReference(this), faceEmbedding!!,
                             object : FaceDetectedListener {
-                                override fun onFaceDetected(faces: List<FirebaseVisionFace>, bitmap: Bitmap, rotation:Int) {
+                                override fun onFaceDetected(faces: List<FirebaseVisionFace>, bitmap: Bitmap, rotation: Int) {
+                                    frame ++
                                     facebox.faces = faces
-                                    if (reButtonclicked) {
+                                    //for register mode
+                                    if (isCaptureButtonclicked) {
+                                        isCaptureButtonclicked = false
                                         try {
                                             val ownerName = intent.getStringExtra(OWNER_NAME)
                                             if (!ownerName.isNullOrBlank()) {
-//                                                val file = savebitmap(bitmap, ownerName)
-//                                                val faceEmbedding = faceEmbedding!!.processFace(bitmap, rotation )
-//                                                registerFace(file!!, faceEmbedding!!)
+                                                val file = savebitmap(bitmap, ownerName)
+                                                val faceEmbedding = faceEmbedding!!.processFace(bitmap, rotation)
+                                                registerFace(file!!, faceEmbedding!!)
                                             }
 
                                         } catch (e: IOException) {
@@ -393,8 +424,18 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                                         }
 
                                     }
+
+                                    //for scanning mode, every 10 frame
+                                    if(currentMode == SCANNING_MODE && faces.size > 0 && frame % 20 ==0 ){
+                                        Log.d(TAG, "onFaceDetected: currentframe $frame")
+                                        var faces = cropFaces(bitmap, faces)
+                                        Log.d(TAG, "onFaceDetected: croppedfaces is ${faces.size}")
+                                        for(faceBitmap in faces){
+                                            makeJoinMeetingRequest(faceEmbedding!!.processFace(faceBitmap!!, rotation)!!)
+                                        }
+                                    }
                                 }
-                            },currentMode).apply {
+                            }, currentMode).apply {
                         this.analysisSizeListener = { size ->
                             updateOverlayTransform(facebox, size)
                         }
@@ -411,9 +452,6 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         imagecapture =
                 ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                         .build()
-//        videoCapture = VideoCaptureConfig.Builder().apply {
-//                setTargetAspectRatio(AspectRatio.RATIO_16_9)
-//            }.build()
 
         processCameraProvider.addListener(Runnable {
             val cameraProvider = processCameraProvider.get()
@@ -433,6 +471,47 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
             }
         }, ContextCompat.getMainExecutor(this))
         Log.d(TAG, "Preview view: ${preview_view.width} $preview_view.height")
+    }
+
+    fun cropFaces(bitmap: Bitmap, faces:List<FirebaseVisionFace>):Array<Bitmap?>{
+        var boxX:Int ?= null
+        var boxY:Int ?= null
+        var box:Rect?= null
+        var boxHeight:Int ?= null
+        var boxWidth:Int ?= null
+        var croppedBitmap:Bitmap ?= null
+        var croppedFaces: Array<Bitmap?> = arrayOfNulls<Bitmap>(faces.size)
+
+        requestQueue
+
+        for(i in faces.indices){
+            var face = faces[i]
+            box = face.boundingBox
+            var arr = IntArray(box.width() * box.height())
+
+
+            boxX = if (box.left > 0) box.left else 0
+            /** if x1 < 0 */
+            boxY = if (box.top > 0) box.top else 0
+            /**if y1 < 0 */
+            boxWidth = if (box.width() + boxX!! <= bitmap!!.width) box.width() else (bitmap!!.width - boxX!!)
+            /** if x2 > width */
+            boxHeight = if (box.height() + boxY!! <= bitmap!!.height) box.height() else (bitmap!!.height - boxY!!)
+            /**if y2 > height */
+
+            bitmap?.getPixels(arr, 0, box.width(),
+                    boxX!!,
+                    boxY!!,
+                    boxWidth!!,
+                    boxHeight!!)
+
+            Log.i(FaceDetectorImageAnalyzer.TAG, "Set pixel to new cropped bitmap.")
+            croppedBitmap = Bitmap.createBitmap(boxWidth!!, boxHeight!!, Bitmap.Config.ARGB_8888)
+            croppedBitmap?.setPixels(arr, 0, boxWidth!!, 0, 0, boxWidth!!, boxHeight!!)
+
+            croppedFaces[i] = croppedBitmap
+        }
+        return croppedFaces
     }
 
     @Throws(IOException::class)

@@ -90,6 +90,7 @@ class AddEmployeeActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
     fun addEmployee(imageUrl: String?) {
         val POST_EMPLOYEE_URL = HOSTING_URL + "api/employee/create"
+        showLoading(true)
 
         val name = name_edittext.text.toString()
         val position = position_edittext.text.toString()
@@ -117,11 +118,16 @@ class AddEmployeeActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val request = object : JsonObjectRequest(Request.Method.POST, POST_EMPLOYEE_URL, json, Response.Listener {
             Log.d(TAG, "addEmployee: added")
             EmployeeFragment.shouldLoadNewEmployee = true
+            showLoading(false)
             Toast.makeText(this, "Successfully added", Toast.LENGTH_SHORT).show()
+            startFaceRegistrationActivity()
+
         }, Response.ErrorListener {
-//            showLoading(false)
+            showLoading(false)
             Log.d(TAG, "addEmployee: error")
             Log.d(TAG, "addEmployee: $it")
+            Toast.makeText(this, "Provided Information is not valid", Toast.LENGTH_SHORT).show()
+
         }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val params: MutableMap<String, String> = HashMap()
@@ -136,9 +142,7 @@ class AddEmployeeActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         }
 
         showLoading(false)
-        //ToDo
         requestQueue?.add(request)
-        startFaceRegistrationActivity()
 
     }
 

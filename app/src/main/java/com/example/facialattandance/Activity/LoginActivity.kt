@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
                 requestBody.put("username", username)
                 requestBody.put("password", password)
 
+                Log.d(TAG, "init: $LOGIN_URL")
                 val request = JsonObjectRequest(Request.Method.POST, LOGIN_URL, requestBody, Response.Listener {
                     response ->
                         run {

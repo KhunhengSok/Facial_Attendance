@@ -152,7 +152,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         fun retrieveOrganization(): Department?{
             val gson = Gson()
-            val departmentJson = userSharedPreference!!.getString(DEPARTMENT_SHARED_PREFERENCE_KEY, "")
+            val departmentJson = userSharedPreference?.getString(DEPARTMENT_SHARED_PREFERENCE_KEY, "")
             if (departmentJson!!.isBlank()){
                 Log.d(TAG, "retrieveDepartment: null")
                 return null
@@ -203,3 +203,5 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 }
+
+

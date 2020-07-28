@@ -57,8 +57,10 @@ class CameraFragment : Fragment() {
 //            }
 //        }
         val intent = Intent(context, CameraActivity::class.java)
+        intent.putExtra(CameraActivity.CAMERA_MODE_KEY, CameraActivity.SCANNING_MODE)
         scan_face.setOnClickListener {
             startActivity(intent)
+
         }
     }
 
