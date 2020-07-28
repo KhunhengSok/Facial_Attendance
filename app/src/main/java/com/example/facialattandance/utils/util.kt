@@ -12,25 +12,28 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.util.Log
 import android.util.SparseIntArray
 import android.view.Surface
 import android.webkit.MimeTypeMap
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.facialattandance.Activity.CameraActivity
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.Companion.TAG
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-fun drawRectangle(faces: List<FirebaseVisionFace>, bitmap: Bitmap,  recPaint: Paint){
+fun drawRectangle(faces: List<FirebaseVisionFace>, bitmap: Bitmap, recPaint: Paint) {
     var tempCanvas: Canvas
-    for ( face in faces){
+    for (face in faces) {
 //        var x1:Float = face.boundingBox.
 //        var y1:Float =
 //        var x2:Float =
@@ -39,13 +42,13 @@ fun drawRectangle(faces: List<FirebaseVisionFace>, bitmap: Bitmap,  recPaint: Pa
         var box = face.boundingBox
         tempCanvas = Canvas(bitmap)
 //        tempCanvas.drawRoundRect(RectF(box), 2.0f,2.0f , recPaint)
-        tempCanvas.drawRoundRect(RectF(1.0f,1.0f,100.0f,100.0f), 2.0f,2.0f , recPaint)
+        tempCanvas.drawRoundRect(RectF(1.0f, 1.0f, 100.0f, 100.0f), 2.0f, 2.0f, recPaint)
 
     }
 }
 
 
-fun uploadImage(uri: Uri, personName:String, listener: ((imageUrl:String)->Unit)? ){
+fun uploadImage(uri: Uri, personName: String, listener: ((imageUrl: String) -> Unit)?) {
     var mStorageRef = FirebaseStorage.getInstance().getReference("image/")
     val TAG = "uploadImage"
 
@@ -56,7 +59,7 @@ fun uploadImage(uri: Uri, personName:String, listener: ((imageUrl:String)->Unit)
     Log.d(TAG, "uploadImage: File Content type is: $contentType")
 
     val fileRef = personDirRef.child(uri.lastPathSegment!!)
-    if(uri.lastPathSegment != null){
+    if (uri.lastPathSegment != null) {
         Log.d(TAG, "uploadImage: Last path segment: ${uri.lastPathSegment}")
         fileRef.putFile(uri, metadata).addOnSuccessListener {
             Log.i(TAG, "Image upload successfully")
@@ -66,10 +69,10 @@ fun uploadImage(uri: Uri, personName:String, listener: ((imageUrl:String)->Unit)
                 listener?.invoke(it.toString()) // passing image url
                 //ToDos:
             }
-        }.addOnFailureListener{
-            Log.e(TAG, "uploadImage: $it.message" )
+        }.addOnFailureListener {
+            Log.e(TAG, "uploadImage: $it.message")
         }.addOnProgressListener {
-            var percentage = (it.bytesTransferred / it.totalByteCount * 100 ).toInt()
+            var percentage = (it.bytesTransferred / it.totalByteCount * 100).toInt()
         }
     }
 }
@@ -81,9 +84,6 @@ fun rotationDegreesToFirebaseRotation(rotationDegrees: Int) = when (rotationDegr
     270 -> FirebaseVisionImageMetadata.ROTATION_270
     else -> throw IllegalArgumentException("Rotation $rotationDegrees not supported")
 }
-
-
-
 
 
 /**
@@ -138,6 +138,7 @@ fun capitalize(capString: String): String? {
     }
     return capMatcher.appendTail(capBuffer).toString()
 }
+
 
 
 //fun convertImageToBitmap(image: Image, output:Array<Int>, cachedYuvImage: Array<Array<Byte>>){

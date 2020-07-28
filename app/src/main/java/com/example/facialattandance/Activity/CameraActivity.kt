@@ -2,12 +2,14 @@ package com.example.facialattandance.Activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
@@ -17,6 +19,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.MimeTypeMap
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.camera2.Camera2Config
@@ -32,8 +36,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.facialattandance.Activity.SplashScreenActivity.Companion.currentOrganization
 import com.example.facialattandance.Activity.SplashScreenActivity.Companion.currentUser
-import com.example.facialattandance.Activity.SplashScreenActivity.Companion.removeCurrentUser
-import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.FaceBoxListener
+import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.FaceDetectedListener
 import com.example.facialattandance.frame.FaceBox
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
 import com.google.firebase.storage.FirebaseStorage
@@ -50,7 +53,15 @@ import com.example.facialattandance.R
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer
 import com.example.facialattandance.utils.FaceEmbedding
 import com.example.facialattandance.utils.HOSTING_URL
+import com.google.android.gms.vision.face.FaceDetector
 import com.google.firebase.FirebaseApp
+import com.google.firebase.ml.vision.FirebaseVision
+import kotlinx.android.synthetic.main.activity_camera.blurBackground
+import kotlinx.android.synthetic.main.activity_camera.loginProgressBar
+import kotlinx.android.synthetic.main.activity_login.*
+import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
+import java.io.IOException
 
 typealias LumaListener = (luma: Double) -> Unit
 
@@ -58,10 +69,18 @@ typealias LumaListener = (luma: Double) -> Unit
 class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
     companion object {
+        fun getFileExtension(uri: Uri): String? {
+//            val cR: ContentResolver = contentResolver
+//            val mime: MimeTypeMap = MimeTypeMap.getSingleton()
+//            return mime.getExtensionFromMimeType(cR.getType(uri))
+            return ""
+        }
+
         private const val TAG = "MainActivity"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSION = 10
         private var REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+        private var isLoading = false
 
         //minumum 100x100px for face detection, 200x200px for contour detection
         val faceAnalyzeDimen = Size(700, 700)
@@ -104,7 +123,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
     private var handler: Handler? = null
     var requestQueue: RequestQueue? = null
 
-    private var cameraFacing: Int = -1
+    private var isCaptureButtonclicked = false
 
     private var currentMode = SCANNING_MODE
 
@@ -167,7 +186,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
     private fun startRegisterMode() {
         camera_capture_button.setOnClickListener {
-            registerFace()
+            isCaptureButtonclicked = true
         }
         startCamera()
     }
@@ -179,11 +198,48 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
     }
 
-    private fun registerFace() {
+    private fun registerFace(faceImage: File, faceEmbedding: FloatArray) {
         val ownerName = intent.getStringExtra(OWNER_NAME)
         if (ownerName.isNullOrBlank()) {
             return
         } else {
+            showLoading(false)
+            uploadImage(Uri.fromFile(faceImage), ownerName, listener = { url ->
+                run {
+                    val json = JSONObject()
+                    json.put("owner", ownerName)
+                    json.put("image_url", url)
+                    json.put("face_embedding", faceEmbedding)
+                    Log.d(TAG, "registerFace: face_embedding's size ${faceEmbedding.size}")
+                    Log.d(TAG, "registerFace: image url: $url")
+
+                    val request = object : JsonObjectRequest(Request.Method.POST, faceEmbeddingRegisterUrl, json, Response.Listener {
+                        Log.d(TAG, "registerFace: registered")
+                        showToast("Register successfully", Toast.LENGTH_SHORT)
+                        showLoading(false)
+                        finish()
+                    }, Response.ErrorListener {
+                        showLoading(false)
+                        Log.d(TAG, "registerFace: error")
+                        Log.d(TAG, "registerFace: ${it}")
+                    }) {
+                        override fun getHeaders(): MutableMap<String, String> {
+                            val params: MutableMap<String, String> = HashMap()
+                            if (SplashScreenActivity.currentUser == null) {
+                                SplashScreenActivity.currentUser = SplashScreenActivity.retrieveUser()
+                            }
+                            Log.d(FaceDetectorImageAnalyzer.TAG, "getHeaders: token: ${SplashScreenActivity.currentUser!!.token}")
+                            params.put("Content-Type", "application/json")
+                            params.put("Authorization", "Bearer " + SplashScreenActivity.currentUser!!.token)
+                            return params
+                        }
+                    }
+
+                    requestQueue?.add(request)
+
+                }
+            })
+
 
         }
     }
@@ -248,13 +304,8 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         }
     }
 
-    private fun getFileExtension(uri: Uri): String? {
-        val cR: ContentResolver = contentResolver
-        val mime: MimeTypeMap = MimeTypeMap.getSingleton()
-        return mime.getExtensionFromMimeType(cR.getType(uri))
-    }
 
-    fun uploadImage(uri: Uri, personName: String) {
+    fun uploadImage(uri: Uri, personName: String, listener: ((imageUrl: String) -> Unit)?) {
         val personDirRef = mStorageRef.child("$personName/")
         val extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString())
         val contentType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
@@ -270,6 +321,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
                 fileRef.downloadUrl.addOnSuccessListener {
                     Log.d(TAG, "uploadImage: ${it.toString()}")
+                    listener?.invoke(it.toString())
                     //ToDos:
                 }
             }.addOnFailureListener {
@@ -280,6 +332,24 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
             }
         }
     }
+
+    fun showLoading(loading: Boolean) {
+        isLoading = loading
+        Log.d(TAG, "showLoading: ${loading}")
+        if (isLoading) {
+            loginProgressBar.visibility = ProgressBar.VISIBLE
+            blurBackground.visibility = LinearLayout.VISIBLE
+            usernameEdit?.isEnabled = false
+            passwordEdit?.isEnabled = false
+        } else {
+            loginProgressBar.visibility = ProgressBar.INVISIBLE
+            blurBackground.visibility = LinearLayout.INVISIBLE
+            usernameEdit?.isEnabled = true
+            passwordEdit?.isEnabled = true
+        }
+
+    }
+
 
     @SuppressLint("RestrictedApi", "UnsafeExperimentalUsageError")
     private fun startCamera() {
@@ -306,11 +376,25 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                 .setTargetResolution(faceAnalyzeDimen)
                 .build().also { it ->
                     it.setAnalyzer(cameraExecutor, FaceDetectorImageAnalyzer(WeakReference(this), faceEmbedding!!,
-                            object : FaceBoxListener {
-                                override fun onFaceDetected(faces: List<FirebaseVisionFace>) {
+                            object : FaceDetectedListener {
+                                override fun onFaceDetected(faces: List<FirebaseVisionFace>, bitmap: Bitmap, rotation:Int) {
                                     facebox.faces = faces
+                                    if (reButtonclicked) {
+                                        try {
+                                            val ownerName = intent.getStringExtra(OWNER_NAME)
+                                            if (!ownerName.isNullOrBlank()) {
+//                                                val file = savebitmap(bitmap, ownerName)
+//                                                val faceEmbedding = faceEmbedding!!.processFace(bitmap, rotation )
+//                                                registerFace(file!!, faceEmbedding!!)
+                                            }
+
+                                        } catch (e: IOException) {
+                                            showToast("Photo register unsuccessfully", Toast.LENGTH_SHORT)
+                                        }
+
+                                    }
                                 }
-                            }).apply {
+                            },currentMode).apply {
                         this.analysisSizeListener = { size ->
                             updateOverlayTransform(facebox, size)
                         }
@@ -351,6 +435,22 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         Log.d(TAG, "Preview view: ${preview_view.width} $preview_view.height")
     }
 
+    @Throws(IOException::class)
+    fun savebitmap(bmp: Bitmap, personName: String): File? {
+        val bytes = ByteArrayOutputStream()
+        bmp.compress(Bitmap.CompressFormat.JPEG, 60, bytes)
+        var f = File(
+                outputDirectory,
+                personName + SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis()) + ".jpg"
+        )
+        Log.d(TAG, "savebitmap: ${f.name}")
+        f.createNewFile()
+        val fo = FileOutputStream(f)
+        fo.write(bytes.toByteArray())
+        fo.close()
+        return f
+    }
+
     private fun takePhoto() {
         val imagecapture = imagecapture ?: return
 
@@ -374,6 +474,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                   }
               }
                   )*/
+
         imagecapture.takePicture(
                 outputOption,
                 ContextCompat.getMainExecutor(this),
@@ -385,7 +486,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 //                        "Photo Captured Success. Saved at $savedUri",
 //                        Toast.LENGTH_LONG
 //                    ).show()
-                        uploadImage(savedUri, currentUser!!.username)
+                        uploadImage(savedUri, currentUser!!.username, null)
 
                     }
 

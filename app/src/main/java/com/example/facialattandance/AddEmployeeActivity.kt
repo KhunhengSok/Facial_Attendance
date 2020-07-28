@@ -137,15 +137,16 @@ class AddEmployeeActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
         showLoading(false)
         //ToDo
-//        requestQueue?.add(request)
+        requestQueue?.add(request)
         startFaceRegistrationActivity()
 
     }
 
     fun startFaceRegistrationActivity() {
         val intent = Intent(this, CameraActivity::class.java)
-        intent.putExtra(CameraActivity.CAMERA_MODE_KEY, CameraActivity.SCANNING_MODE)
+        intent.putExtra(CameraActivity.CAMERA_MODE_KEY, CameraActivity.REGISTER_MODE)
         intent.putExtra(CameraActivity.OWNER_NAME, name_edittext.text.toString())
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }

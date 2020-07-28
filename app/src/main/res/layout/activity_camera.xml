@@ -1,42 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.camera.view.PreviewView
-            android:id="@+id/preview_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-    </androidx.camera.view.PreviewView>
+            android:layout_height="match_parent">
 
-    <com.example.facialattandance.frame.FaceBox
-            android:id="@+id/facebox"
+        <androidx.camera.view.PreviewView
+                android:id="@+id/preview_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></androidx.camera.view.PreviewView>
+
+        <com.example.facialattandance.frame.FaceBox
+                android:id="@+id/facebox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        <ImageButton
+                android:id="@+id/camera_capture_button"
+                android:layout_width="@dimen/capture_button_size"
+                android:layout_height="@dimen/capture_button_size"
+                android:layout_marginBottom="@dimen/capture_button_margin"
+                android:background="@drawable/ic_shutter"
+                android:contentDescription="@string/capture_button"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <!--    <ImageView
+                    android:id="@+id/cameraFacingSwitchButton"
+                    android:layout_width="@dimen/capture_button_margin"
+                    android:layout_height="@dimen/capture_button_margin"
+                    android:layout_marginBottom="@dimen/capture_button_margin"
+                    android:layout_margin="@dimen/capture_button_margin"
+                    android:src="@drawable/ic_loop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+            android:id="@+id/blurBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:visibility="invisible" />
 
-    <ImageButton
-            android:id="@+id/camera_capture_button"
-            android:layout_width="@dimen/capture_button_size"
-            android:layout_height="@dimen/capture_button_size"
-            android:layout_marginBottom="@dimen/capture_button_margin"
-            android:background="@drawable/ic_shutter"
-            android:contentDescription="@string/capture_button"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <ProgressBar
+            android:id="@+id/loginProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/white"
+            android:visibility="invisible" />
 
-<!--    <ImageView
-            android:id="@+id/cameraFacingSwitchButton"
-            android:layout_width="@dimen/capture_button_margin"
-            android:layout_height="@dimen/capture_button_margin"
-            android:layout_marginBottom="@dimen/capture_button_margin"
-            android:layout_margin="@dimen/capture_button_margin"
-            android:src="@drawable/ic_loop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />-->
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

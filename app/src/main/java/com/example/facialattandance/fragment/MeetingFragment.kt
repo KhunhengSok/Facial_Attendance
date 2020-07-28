@@ -38,7 +38,7 @@ import kotlin.collections.HashMap
 
 
 class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private var organizationId = SplashScreenActivity.currentOrganization!!.id
+    private var organizationId = SplashScreenActivity.retrieveOrganization()!!.id
     private var Meeting_Url = HOSTING_URL + "api/organization/$organizationId/events"
     private var requestQueue:RequestQueue ?= null
     private var dialog:Dialog ?= null

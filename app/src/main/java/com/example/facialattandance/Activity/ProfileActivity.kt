@@ -43,10 +43,14 @@ class ProfileActivity : AppCompatActivity() {
         employ_date_textview.text = employee.employed_date
 //        email_textview.text = employee.email
         birth_of_date_textview.text = employee.birth_of_date
-        try{
+        /*try{
             image_profile.setImageURI(Uri.parse(employee.profile_url))
         }catch (e:NullPointerException){
-            image_profile.setImageDrawable(getDrawable(R.id.image_profile))
+            image_profile.setImageDrawable(getDrawable(R.drawable.profile))
+
+        }*/
+        if(employee.profile_url != null){
+            image_profile.setImageURI(Uri.parse(employee.profile_url))
         }
         Log.d(TAG, "onCreate: ${employee.profile_url}")
 //        Glide.with(this).load(Uri.parse(employee.profile_url)).into(image_profile)

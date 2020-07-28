@@ -14,7 +14,6 @@ import androidx.camera.core.ImageProxy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.example.facialattandance.utils.ImageUtils
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
@@ -28,11 +27,14 @@ import java.lang.ref.WeakReference
 import java.nio.ByteBuffer
 import java.util.concurrent.atomic.AtomicBoolean
 import com.example.facialattandance.Activity.CameraActivity
+import com.example.facialattandance.Activity.SplashScreenActivity
 
 class FaceDetectorImageAnalyzer(
         val activityContext: WeakReference<CameraActivity>,
         val faceEmbedding: FaceEmbedding,
-        val faceBoxListener: FaceBoxListener
+        val faceBoxListener: FaceDetectedListener,
+//        val faceEmbeddingListener: FaceEmbeddingListener,
+        val cameraMode:Int
 ) : ImageAnalysis.Analyzer {
     private val firebaseVision: FirebaseVision = FirebaseVision.getInstance()
     val options = FirebaseVisionFaceDetectorOptions.Builder().enableTracking().build()
@@ -82,8 +84,12 @@ class FaceDetectorImageAnalyzer(
     private val detector = firebaseVision.getVisionFaceDetector(realtimeOpts)
 
 
-    interface FaceBoxListener {
-        fun onFaceDetected(faces: List<FirebaseVisionFace>)
+    interface FaceDetectedListener {
+        fun onFaceDetected(faces: List<FirebaseVisionFace>, bitmap: Bitmap, rotation:Int)
+    }
+
+    interface FaceEmbeddingListener {
+        fun onFaceEmbeddingGenerated()
     }
 
     private fun ByteBuffer.toByteArray(): ByteArray {
@@ -224,16 +230,27 @@ class FaceDetectorImageAnalyzer(
         }
         val errorListener = Response.ErrorListener {
             try{
-                var responseBody = String(it.networkResponse.data)
-                var json = JSONObject(responseBody)
-                Log.e(TAG, "Error message: " +  json.optString("message")                        )
+//                var responseBody = String(it.networkResponse.data)
+//                var json = JSONObject(responseBody)
+                Log.e(TAG, "Error: ")
                 Log.e(TAG, it.toString())
             }catch (e: NullPointerException){
 
             }
 
         }
-        var request = JsonObjectRequest(Request.Method.POST, url, body, listener, errorListener )
+        var request = object:JsonObjectRequest(Request.Method.POST, url, body, listener, errorListener ){
+            override fun getHeaders(): MutableMap<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                if(SplashScreenActivity.currentUser == null){
+                    SplashScreenActivity.currentUser = SplashScreenActivity.retrieveUser()
+                }
+                Log.d(TAG, "getHeaders: token: ${SplashScreenActivity.currentUser!!.token}")
+                params.put("Content-Type", "application/json")
+                params.put("Authorization", "Bearer " + SplashScreenActivity.currentUser!!.token)
+                return params
+            }
+        }
         return request
     }
 
@@ -270,42 +287,51 @@ class FaceDetectorImageAnalyzer(
 
                     var box:Rect ?= null
 
-                    for( face in it){
-                        Log.d(TAG, "Id : " + face.trackingId.toString())
+                    if(it.size > 1 && cameraMode == CameraActivity.REGISTER_MODE){
+                        activityContext.get()!!.showToast("Too many faces detected", Toast.LENGTH_SHORT)
+                    }else {
+                        for (face in it) {
+                            Log.d(TAG, "Id : " + face.trackingId.toString())
 
-                        box = face.boundingBox
-                        var arr = IntArray(box.width() * box.height())
+                            box = face.boundingBox
+                            var arr = IntArray(box.width() * box.height())
 
 
-                        boxX = if (box.left > 0) box.left else 0  /** if x1 < 0 */
-                        boxY = if(box.top > 0) box.top else 0 /**if y1 < 0 */
-                        boxWidth = if(box.width() + boxX!! <= bitmap!!.width) box.width() else (bitmap!!.width - boxX!!) /** if x2 > width */
-                        boxHeight = if(  box.height() + boxY!! <= bitmap!!.height) box.height() else ( bitmap!!.height - boxY!!) /**if y2 > height */
+                            boxX = if (box.left > 0) box.left else 0
+                            /** if x1 < 0 */
+                            boxY = if (box.top > 0) box.top else 0
+                            /**if y1 < 0 */
+                            boxWidth = if (box.width() + boxX!! <= bitmap!!.width) box.width() else (bitmap!!.width - boxX!!)
+                            /** if x2 > width */
+                            boxHeight = if (box.height() + boxY!! <= bitmap!!.height) box.height() else (bitmap!!.height - boxY!!)
+                            /**if y2 > height */
 
-                        bitmap?.getPixels( arr, 0, box.width(),
-                                boxX!! ,
-                                boxY!! ,
-                                boxWidth!!,
-                                boxHeight!! )
+                            bitmap?.getPixels(arr, 0, box.width(),
+                                    boxX!!,
+                                    boxY!!,
+                                    boxWidth!!,
+                                    boxHeight!!)
 
-                        Log.i(TAG, "Set pixel to new cropped bitmap.")
-                        croppedBitmap = Bitmap.createBitmap(boxWidth!!, boxHeight!!, Bitmap.Config.ARGB_8888)
-                        croppedBitmap?.setPixels(arr, 0, boxWidth!!, 0,0, boxWidth!!, boxHeight!!)
-                        Log.d("Test", "Pixel" + croppedBitmap?.getPixel(10,10).toString())
-                        //TODOs: add handler
-                        if( !isFaceEmbedding.get()){
-                            activityContext.get()!!.runInBackground(Runnable {
-                                Log.d(TAG, "Face processing in background")
-                                isFaceEmbedding.set(true)
-                                var faceEembedding = faceEmbedding.processFace(croppedBitmap!!, rotation )
+                            Log.i(TAG, "Set pixel to new cropped bitmap.")
+                            croppedBitmap = Bitmap.createBitmap(boxWidth!!, boxHeight!!, Bitmap.Config.ARGB_8888)
+                            croppedBitmap?.setPixels(arr, 0, boxWidth!!, 0, 0, boxWidth!!, boxHeight!!)
+//                            Log.d("Test", "Pixel" + croppedBitmap?.getPixel(10, 10).toString())
+                            //TODOs: add handler
+                            if (!isFaceEmbedding.get()) {
+                                activityContext.get()!!.runInBackground(Runnable {
+                                    Log.d(TAG, "Face processing in background")
+                                    isFaceEmbedding.set(true)
+                                    var faceEembedding = faceEmbedding.processFace(croppedBitmap!!, rotation)
 
-                                val request = createFaceCompareRequest(faceEembedding!! )
-                                addRequest(request)
-                                isFaceEmbedding.set(false)
+//                                    val request = createFaceCompareRequest(faceEembedding!!)
+//                                    addRequest(request)
 
-                            })
-                        }else{
-                            Log.d("TAG", "Processing face; Skip frame.")
+                                    isFaceEmbedding.set(false)
+
+                                })
+                            } else {
+                                Log.d("TAG", "Processing face; Skip frame.")
+                            }
                         }
                     }
 
@@ -314,7 +340,7 @@ class FaceDetectorImageAnalyzer(
                     Log.i(TAG, "Face found: " + it.size.toString())
 
                     isAnalyzing.set(false)
-                    faceBoxListener.onFaceDetected(it)
+                    faceBoxListener.onFaceDetected(it, bitmap, rotation)
                     imageProxy.close()
                 }.addOnFailureListener {
                     isAnalyzing.set(false)

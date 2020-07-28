@@ -22,7 +22,8 @@
         <activity android:name=".EventAttendeesActivity" />
         <activity
                 android:name=".AddEmployeeActivity"
-                android:parentActivityName=".Activity.HomeActivity" />
+                android:parentActivityName=".Activity.HomeActivity"
+                />
         <activity android:name=".Activity.CameraActivity" android:resizeableActivity="true">
 
 
@@ -41,7 +42,6 @@
         <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!--  -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

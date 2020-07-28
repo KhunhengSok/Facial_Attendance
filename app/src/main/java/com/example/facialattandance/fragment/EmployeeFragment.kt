@@ -38,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class EmployeeFragment : Fragment() {
     private var Employee_Url: String? = null
-    private var organizationId = SplashScreenActivity.currentOrganization!!.id
+    private var organizationId = SplashScreenActivity.currentOrganization?.id
     private var requestQueue: RequestQueue?=null
 
 
