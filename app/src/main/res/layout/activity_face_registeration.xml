@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-<!--    <ImageView
+   <!-- <ImageView
             android:id="@+id/cameraFacingSwitchButton"
             android:layout_width="@dimen/capture_button_margin"
             android:layout_height="@dimen/capture_button_margin"

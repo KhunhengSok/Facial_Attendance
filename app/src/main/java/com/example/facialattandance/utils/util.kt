@@ -10,14 +10,20 @@ import android.graphics.RectF
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.util.SparseIntArray
 import android.view.Surface
+import android.webkit.MimeTypeMap
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.facialattandance.Activity.CameraActivity
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.Companion.TAG
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -35,6 +41,36 @@ fun drawRectangle(faces: List<FirebaseVisionFace>, bitmap: Bitmap,  recPaint: Pa
 //        tempCanvas.drawRoundRect(RectF(box), 2.0f,2.0f , recPaint)
         tempCanvas.drawRoundRect(RectF(1.0f,1.0f,100.0f,100.0f), 2.0f,2.0f , recPaint)
 
+    }
+}
+
+
+fun uploadImage(uri: Uri, personName:String, listener: ((imageUrl:String)->Unit)? ){
+    var mStorageRef = FirebaseStorage.getInstance().getReference("image/")
+    val TAG = "uploadImage"
+
+    val personDirRef = mStorageRef.child("$personName/")
+    val extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString())
+    val contentType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+    var metadata = StorageMetadata.Builder().setContentType(contentType).build()
+    Log.d(TAG, "uploadImage: File Content type is: $contentType")
+
+    val fileRef = personDirRef.child(uri.lastPathSegment!!)
+    if(uri.lastPathSegment != null){
+        Log.d(TAG, "uploadImage: Last path segment: ${uri.lastPathSegment}")
+        fileRef.putFile(uri, metadata).addOnSuccessListener {
+            Log.i(TAG, "Image upload successfully")
+
+            fileRef.downloadUrl.addOnSuccessListener {
+                Log.d(TAG, "uploadImage: ${it.toString()}")
+                listener?.invoke(it.toString()) // passing image url
+                //ToDos:
+            }
+        }.addOnFailureListener{
+            Log.e(TAG, "uploadImage: $it.message" )
+        }.addOnProgressListener {
+            var percentage = (it.bytesTransferred / it.totalByteCount * 100 ).toInt()
+        }
     }
 }
 

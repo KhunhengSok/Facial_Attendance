@@ -1,5 +1,6 @@
 package com.example.facialattandance.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,6 +37,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         return viewHolder;
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(@NonNull final EmployeeViewHolder holder, int position) {
         final Employee employee = employees[position];
@@ -43,7 +45,11 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         holder.department.setText(employee.getDepartment());
 //        holder.img_profile.setImageURI(employee.getImageUrl());
         Log.d(TAG, "onBindViewHolder: ");
-        Glide.with(holder.itemView).load(Uri.parse(employee.getProfile_url())).into(holder.img_profile);
+        try{
+            Glide.with(holder.itemView).load(Uri.parse(employee.getProfile_url())).into(holder.img_profile);
+        }catch (NullPointerException e){
+            holder.img_profile.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.profile));
+        }
 
         // Apply on click listener on each view holder
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,243 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
+    <!--name
+    organization
+    profile_url-->
 
-<!--        <include layout="@layout/toolbar" />-->
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryLight"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
-    <RelativeLayout
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:fitsSystemWindows="true"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_large">
+                android:padding="16dp">
 
-            <LinearLayout
+
+            <!-- <FrameLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent">
+
+
+
+             </FrameLayout>-->
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/image_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:paddingBottom="20dp"
+                    app:placeholderImage="@drawable/profile"
+                    app:roundAsCircle="true" />
+
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@android:color/white"
+                    android:backgroundTint="@android:color/white"
+                    android:textColorHint="@color/grey_40"
+                    app:boxBackgroundColor="@android:color/white">
 
-                <TextView
-                        android:layout_width="0dp"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_edittext"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Email" />
+                        android:hint="Name"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
-
-                <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
+                    android:layout_height="@dimen/spacing_middle" />
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:backgroundTint="@android:color/white"
+                    android:textColorHint="@color/grey_40"
+                    app:boxBackgroundColor="@android:color/white">
 
-                <TextView
-                        android:layout_width="0dp"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_edittext"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Name" />
+                        android:hint="Email"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
-
-                <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
+                    android:layout_height="@dimen/spacing_middle" />
 
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:backgroundTint="@android:color/white"
+                    android:textColorHint="@color/grey_40"
+                    app:boxBackgroundColor="@android:color/white">
 
-                <TextView
-                        android:layout_width="0dp"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/department_edittext"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Location" />
+                        android:hint="Department"
+                        android:inputType="text"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
-
-                <TextView
-                        android:id="@+id/tv_location"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
+                    android:layout_height="@dimen/spacing_middle" />
 
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:textColorHint="@color/grey_40"
+                    app:boxBackgroundColor="@android:color/white">
 
-                <TextView
-                        android:layout_width="0dp"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/position_edittext"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="From" />
+                        android:hint="Position"
+                        android:inputType="text"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                        android:id="@+id/tv_from"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
-
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingTop="@dimen/spacing_middle"
+                    android:textColorHint="@color/grey_40"
+                    app:boxBackgroundColor="@android:color/white">
 
-                <TextView
-                        android:layout_width="0dp"
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dob_button"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="To" />
+                        android:backgroundTint="@color/grey_20"
+                        android:text="Date of Birth"
+                        android:textSize="16sp" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                        android:id="@+id/tv_to"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
-
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingTop="@dimen/spacing_middle"
+                    android:textColorHint="@color/grey_40"
+                    app:boxBackgroundColor="@android:color/white">
 
-                <TextView
-                        android:layout_width="0dp"
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/employ_date_button"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="All day" />
+                        android:backgroundTint="@color/grey_20"
+                        android:text="Employ Date"
+                        android:textSize="16sp" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
-
-                <TextView
-                        android:id="@+id/tv_allday"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Timezone" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  :  " />
-
-                <TextView
-                        android:id="@+id/tv_timezone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="-" />
-
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
 
-    </RelativeLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/blurForeground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@android:color/white"
+                android:visibility="invisible" />
+    </FrameLayout>
 
 </LinearLayout>

@@ -22,7 +22,6 @@ import com.example.facialattandance.R
 import com.example.facialattandance.adapter.EmployeeAdapter
 import com.example.facialattandance.utils.HOSTING_URL
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_employee.*
 import kotlinx.android.synthetic.main.activity_employee.progress_bar
 import kotlinx.android.synthetic.main.activity_employee.recycler_view
 import kotlinx.android.synthetic.main.fragment_employee.*
@@ -39,22 +38,22 @@ private const val ARG_PARAM2 = "param2"
  */
 class EmployeeFragment : Fragment() {
     private var Employee_Url: String? = null
-    private var organizationId = SplashScreenActivity.currentDepartment!!.id
+    private var organizationId = SplashScreenActivity.currentOrganization!!.id
     private var requestQueue: RequestQueue?=null
+
 
     fun init(){
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         recycler_view!!.layoutManager = layoutManager
-        Employee_Url = HOSTING_URL + "api/organization/${SplashScreenActivity.currentDepartment!!.id}/employees"
+        Employee_Url = HOSTING_URL + "api/organization/${SplashScreenActivity.currentOrganization!!.id}/employees"
         Log.d(EmployeeActivity.TAG, "init: ${Employee_Url}")
         requestQueue = Volley.newRequestQueue(context)
 
         add_employee_fab.setOnClickListener{
+            Log.d(TAG, "init: clicked on fab")
             val intent = Intent(activity, AddEmployeeActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +67,14 @@ class EmployeeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         loadEmployee()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if(shouldLoadNewEmployee){
+            shouldLoadNewEmployee = false
+            loadEmployee()
+        }
     }
 
     private fun loadEmployee() {
@@ -118,6 +124,7 @@ class EmployeeFragment : Fragment() {
 
     companion object {
         val TAG = "EmployeeFragment"
+        var shouldLoadNewEmployee = false
 
     }
 }

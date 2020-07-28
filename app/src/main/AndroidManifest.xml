@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
             android:name=".MyApp"
@@ -15,9 +16,15 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".EventAttendeesActivity"></activity>
-        <activity android:name=".AddEmployeeActivity" />
-        <activity android:name=".Activity.CameraActivity">
+        <meta-data android:name="android.max_aspect" android:value="2.5" />
+
+        <activity android:name=".FaceRegisterationActivity"></activity>
+        <activity android:name=".EventAttendeesActivity" />
+        <activity
+                android:name=".AddEmployeeActivity"
+                android:parentActivityName=".Activity.HomeActivity" />
+        <activity android:name=".Activity.CameraActivity" android:resizeableActivity="true">
+
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->

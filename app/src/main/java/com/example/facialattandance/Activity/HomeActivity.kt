@@ -1,9 +1,7 @@
 package com.example.facialattandance.Activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.facialattandance.R
 import com.example.facialattandance.fragment.*
@@ -40,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.mnu_home -> {
 //                    supportActionBar!!.setTitle(R.string.meeting)
-                    supportActionBar!!.setTitle(capitalize(SplashScreenActivity.currentDepartment?.name!!))
+                    supportActionBar!!.setTitle(capitalize(SplashScreenActivity.currentOrganization?.name!!))
                     showFragment(MeetingFragment())
                 }
                 R.id.mnu_employee -> {
@@ -62,4 +60,7 @@ class HomeActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.lytFragmentContainer, fragment)
         fragmentTransaction.commit()
     }
+
+
+
 }

@@ -12,7 +12,7 @@ import com.android.volley.*
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.facialattandance.Activity.SplashScreenActivity.Companion.saveDepartment
+import com.example.facialattandance.Activity.SplashScreenActivity.Companion.saveOrganization
 import com.example.facialattandance.Activity.SplashScreenActivity.Companion.saveUser
 import com.example.facialattandance.Model.Department
 import com.example.facialattandance.R
@@ -122,8 +122,8 @@ class LoginActivity : AppCompatActivity() {
                 run {
                     Log.d(SplashScreenActivity.TAG, "getDepartment: response")
                     val departments = gson.fromJson(response.toString(), Array<Department>::class.java)
-                    SplashScreenActivity.currentDepartment = departments[0]
-                    saveDepartment(departments[0])
+                    SplashScreenActivity.currentOrganization = departments[0]
+                    saveOrganization(departments[0])
 
                     Log.d(TAG, "getDepartment: assign department")
 

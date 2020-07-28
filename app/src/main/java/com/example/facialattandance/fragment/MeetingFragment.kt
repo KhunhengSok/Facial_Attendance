@@ -31,7 +31,6 @@ import com.example.facialattandance.utils.HOSTING_URL
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.dialog_add_meeting.*
 import kotlinx.android.synthetic.main.fragment_meeting.*
-import kotlinx.android.synthetic.main.fragment_setup.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,7 +38,7 @@ import kotlin.collections.HashMap
 
 
 class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private var organizationId = SplashScreenActivity.currentDepartment!!.id
+    private var organizationId = SplashScreenActivity.currentOrganization!!.id
     private var Meeting_Url = HOSTING_URL + "api/organization/$organizationId/events"
     private var requestQueue:RequestQueue ?= null
     private var dialog:Dialog ?= null
@@ -135,8 +134,6 @@ class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePick
         months = Integer.toString(month)
         years = Integer.toString(year)
 
-//        date_picker_button.text = currentDate
-//                date_picker_button?.setText(currentDate)
         Log.d("AddMeetingDialog", "onDateSet: $currentDate")
         dialog?.date_picker_button?.text = currentDate
     }
@@ -177,7 +174,7 @@ class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePick
         val POST_MEETING_URL = HOSTING_URL + "api/event/create"
         val json = JSONObject()
         json.put("name", name)
-        json.put("organization", SplashScreenActivity.currentDepartment!!.name)
+        json.put("organization", SplashScreenActivity.currentOrganization!!.name)
         json.put("date", date)
         json.put("start_time", start_time)
         json.put("end_time", end_time)

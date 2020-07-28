@@ -22,7 +22,7 @@ import org.json.JSONObject
 
 class SplashScreenActivity : AppCompatActivity() {
     private var requestQueue:RequestQueue ?= null
-    var Get_Department_Url:String ?=null
+    var Get_Organization_Url:String ?=null
 
     fun init(){
 //        val prefs = getSharedPreferences("isStarted", Context.MODE_PRIVATE)
@@ -32,14 +32,14 @@ class SplashScreenActivity : AppCompatActivity() {
         userSharedPreference = getSharedPreferences(USER_SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
         requestQueue = Volley.newRequestQueue(this)
         currentUser = retrieveUser()
-        currentDepartment = retrieveDepartment()
+        currentOrganization = retrieveOrganization()
 
         Handler().postDelayed({
             if(isStarted) {
                 if(currentUser != null){
                     Log.d(TAG, "init: current user is not null")
-                    Get_Department_Url = HOSTING_URL + "api/account/${currentUser!!.id}/organization"
-                    loadDepartment(currentUser!!.id)
+                    Get_Organization_Url = HOSTING_URL + "api/account/${currentUser!!.id}/organization"
+                    loadOrganization(currentUser!!.id)
 
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
@@ -54,16 +54,16 @@ class SplashScreenActivity : AppCompatActivity() {
         }, SPLASH_TIME_OUT)
     }
 
-    fun loadDepartment(userId:Int){
+    fun loadOrganization(userId:Int){
         Log.d(TAG, "getDepartment")
         val gson = Gson()
-        Log.d(TAG, "getDepartment: url: $Get_Department_Url")
-        val request = object:JsonObjectRequest(Request.Method.GET, Get_Department_Url, null, Response.Listener {
+        Log.d(TAG, "getDepartment: url: $Get_Organization_Url")
+        val request = object:JsonObjectRequest(Request.Method.GET, Get_Organization_Url, null, Response.Listener {
             response ->
             run {
                 Log.d(TAG, "getDepartment: response")
                 val department = gson.fromJson(response.toString(), Department::class.java)
-                currentDepartment = department
+                currentOrganization = department
                 
                 Log.d(TAG, "getDepartment: assign department")
             }
@@ -98,7 +98,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     companion object{
         var currentUser:User ?= null
-        var currentDepartment: Department?=null
+        var currentOrganization: Department?=null
         val TAG = "SplashScreenActivity"
         var userSharedPreference:SharedPreferences ?= null
 
@@ -137,7 +137,7 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         }*/
 
-        fun saveDepartment(department: Department){
+        fun saveOrganization(department: Department){
             val gson = Gson()
             val departmentJson = gson.toJson(department)
             val editor = userSharedPreference!!.edit()
@@ -150,7 +150,7 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         }
 
-        fun retrieveDepartment(): Department?{
+        fun retrieveOrganization(): Department?{
             val gson = Gson()
             val departmentJson = userSharedPreference!!.getString(DEPARTMENT_SHARED_PREFERENCE_KEY, "")
             if (departmentJson!!.isBlank()){
@@ -162,8 +162,8 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         }
 
-        fun removeCurrentDepartment(){
-            currentDepartment = null
+        fun removeCurrentOrganization(){
+            currentOrganization = null
             val editor = userSharedPreference!!.edit()
             editor.remove(DEPARTMENT_SHARED_PREFERENCE_KEY)
             if(editor.commit()){

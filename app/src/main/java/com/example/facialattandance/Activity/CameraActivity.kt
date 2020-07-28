@@ -3,6 +3,7 @@ package com.example.facialattandance.Activity
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.net.Uri
@@ -13,6 +14,8 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Size
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +30,9 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.facialattandance.Activity.SplashScreenActivity.Companion.currentOrganization
+import com.example.facialattandance.Activity.SplashScreenActivity.Companion.currentUser
+import com.example.facialattandance.Activity.SplashScreenActivity.Companion.removeCurrentUser
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer.FaceBoxListener
 import com.example.facialattandance.frame.FaceBox
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
@@ -43,6 +49,7 @@ import java.util.concurrent.Executors
 import com.example.facialattandance.R
 import com.example.facialattandance.utils.FaceDetectorImageAnalyzer
 import com.example.facialattandance.utils.FaceEmbedding
+import com.example.facialattandance.utils.HOSTING_URL
 import com.google.firebase.FirebaseApp
 
 typealias LumaListener = (luma: Double) -> Unit
@@ -61,6 +68,12 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 
         //camera choose longer value as width and shorter value for height
         val previewDimen = Size(480, 720)
+
+        var REGISTER_MODE = 100
+        var SCANNING_MODE = 101
+        val CAMERA_MODE_KEY = "CAMERA_MODE_KEY"
+        val OWNER_NAME = "OWNER_NAME"
+
     }
 
     //create createclassifer function
@@ -83,58 +96,96 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
     private var cachedAnalysisDemens = Size(0, 0)
     private lateinit var cachedTargetDimens: Size
 
-    private var faceEmbedding: FaceEmbedding?= null
+    private var faceEmbedding: FaceEmbedding? = null
 
     lateinit var current_camer_id: String
 
-    private var handlerThread: HandlerThread ?= null
-    private var handler:Handler ?= null
-    var requestQueue:RequestQueue ?= null
+    private var handlerThread: HandlerThread? = null
+    private var handler: Handler? = null
+    var requestQueue: RequestQueue? = null
 
-    private var cameraFacing:Int = -1
+    private var cameraFacing: Int = -1
+
+    private var currentMode = SCANNING_MODE
 
     var mStorageRef = FirebaseStorage.getInstance().getReference("image/")
 
-    public val faceCompareUrl = "http://192.168.1.60:5000/api/face_embedding/compare"
+    //    public val faceCompareUrl = HOSTING_URL + "api/face_embedding/compare"
+    public val faceCompareUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/recognize"
+    public val faceEmbeddingRegisterUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/compare"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera)
         FirebaseApp.initializeApp(this)
-        init()
+        setCameraModeFromIntent(intent)
+
 
         if (allPermissionsGranted()) {
-            startCamera()
+//            startCamera()
+            init()
+
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
         }
 
-        camera_capture_button.setOnClickListener(View.OnClickListener {
+        /*camera_capture_button.setOnClickListener(View.OnClickListener {
             takePhoto()
-        })
+        })*/
 //        startConnect()
     }
 
-    private fun init(){
+    fun setCameraModeFromIntent(intent: Intent) {
+        val mode = intent.getIntExtra(CAMERA_MODE_KEY, SCANNING_MODE)
+        if (mode == SCANNING_MODE) {
+            Log.d(TAG, "setCameraModeFromIntent: SCANNING_MODE")
+            currentMode = SCANNING_MODE
+        } else if (mode == REGISTER_MODE) {
+            Log.d(TAG, "setCameraModeFromIntent: SCANNING_MODE")
+            currentMode = REGISTER_MODE
+        }
+    }
+
+    private fun init() {
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
         faceEmbedding = FaceEmbedding.create(this as Activity)
 
         handlerThread = HandlerThread("Face Embedding")
         handlerThread?.start()
-        handler = Handler( handlerThread?.looper)
+        handler = Handler(handlerThread?.looper)
         requestQueue = Volley.newRequestQueue(this)
 
-        cameraFacing = CameraSelector.LENS_FACING_BACK
+        if (currentMode == SCANNING_MODE) {
+            startScanningMode()
+        } else if (currentMode == REGISTER_MODE) {
+            startRegisterMode()
+        }
+    }
 
-        cameraFacingSwitchButton.setOnClickListener(View.OnClickListener {
-            cameraFacing = if(cameraFacing == CameraSelector.LENS_FACING_BACK){
-                CameraSelector.LENS_FACING_FRONT
-            }else{
-                CameraSelector.LENS_FACING_BACK
-            }
+    private fun startRegisterMode() {
+        camera_capture_button.setOnClickListener {
+            registerFace()
+        }
+        startCamera()
+    }
 
-        })
+    private fun startScanningMode() {
+        camera_capture_button.visibility = View.INVISIBLE
+        startCamera()
+
+
+    }
+
+    private fun registerFace() {
+        val ownerName = intent.getStringExtra(OWNER_NAME)
+        if (ownerName.isNullOrBlank()) {
+            return
+        } else {
+
+        }
     }
 
     private fun getOutputDirectory(): File {
@@ -152,7 +203,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         return Camera2Config.defaultConfig()
     }
 
-    private fun startConnect(){
+    private fun startConnect() {
         val emulator_url = "10.0.0.15:8000"
         val device_url = "http://192.168.1.60:5000/api/face_embedding/compare"
 
@@ -160,17 +211,16 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 //        var arr = FloatArray(2048, init= {i -> (-1..2).random().toFloat()})
         jsonBody.put("face_embedding", "Hello world")
         val request = JsonObjectRequest(Request.Method.POST, device_url, jsonBody,
-                Response.Listener{
+                Response.Listener {
                     Log.d("Request", it.toString())
-                },  Response.ErrorListener{
+                }, Response.ErrorListener {
             var responseBody = String(it.networkResponse.data)
             var json = JSONObject(responseBody)
-            Log.e("Request", "Error message: " +  json.optString("message")                        )
+            Log.e("Request", "Error message: " + json.optString("message"))
             Log.e("Request", it.toString())
         })
         requestQueue?.add(request)
     }
-
 
 
     override fun onRequestPermissionsResult(
@@ -204,7 +254,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         return mime.getExtensionFromMimeType(cR.getType(uri))
     }
 
-    fun uploadImage(uri:Uri, personName:String){
+    fun uploadImage(uri: Uri, personName: String) {
         val personDirRef = mStorageRef.child("$personName/")
         val extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString())
         val contentType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
@@ -212,7 +262,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         Log.d(TAG, "uploadImage: File Content type is: $contentType")
 
         val fileRef = personDirRef.child(uri.lastPathSegment!!)
-        if(uri.lastPathSegment != null){
+        if (uri.lastPathSegment != null) {
             Log.d(TAG, "uploadImage: Last path segment: ${uri.lastPathSegment}")
             fileRef.putFile(uri, metadata).addOnSuccessListener {
                 showToast("Success uploaded.", Toast.LENGTH_SHORT)
@@ -222,11 +272,11 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                     Log.d(TAG, "uploadImage: ${it.toString()}")
                     //ToDos:
                 }
-            }.addOnFailureListener{
+            }.addOnFailureListener {
                 showToast("Failing to upload. ${it.message}", Toast.LENGTH_SHORT)
-                Log.e(TAG, "uploadImage: $it.message" )
+                Log.e(TAG, "uploadImage: $it.message")
             }.addOnProgressListener {
-                var percentage = (it.bytesTransferred / it.totalByteCount * 100 ).toInt()
+                var percentage = (it.bytesTransferred / it.totalByteCount * 100).toInt()
             }
         }
     }
@@ -239,14 +289,14 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         }
         Log.d(TAG, "display matrix:$displayMatrix")
 
-        val windowSize = Size( this.windowManager.defaultDisplay.width,
+        val windowSize = Size(this.windowManager.defaultDisplay.width,
                 this.windowManager.defaultDisplay.height)
         Log.d(TAG, "Window size: $windowSize")
 
 //        preview = Preview.Builder().setTargetAspectRatioCustom(Rational(displayMatrix.widthPixels, displayMatrix.heightPixels)).build()
-        try{
-            preview = Preview.Builder().setTargetResolution( windowSize).build()
-        }catch (e: Exception){
+        try {
+            preview = Preview.Builder().setTargetResolution(windowSize).build()
+        } catch (e: Exception) {
             Log.e(TAG, e.message)
             preview = Preview.Builder().build()
         }
@@ -264,8 +314,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                         this.analysisSizeListener = { size ->
                             updateOverlayTransform(facebox, size)
                         }
-                        this.faceEmbeddingListener = {
-                            faceEmbedding: Array<Float> ->
+                        this.faceEmbeddingListener = { faceEmbedding: Array<Float> ->
                             Log.d("Face Embedding", "Get face embedding")
                             Log.d("Face Embedding", "Size:  $faceEmbedding.size")
                         }
@@ -302,10 +351,6 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         Log.d(TAG, "Preview view: ${preview_view.width} $preview_view.height")
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     private fun takePhoto() {
         val imagecapture = imagecapture ?: return
 
@@ -340,7 +385,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
 //                        "Photo Captured Success. Saved at $savedUri",
 //                        Toast.LENGTH_LONG
 //                    ).show()
-                        uploadImage(savedUri, "Khunheng Sok")
+                        uploadImage(savedUri, currentUser!!.username)
 
                     }
 
@@ -351,16 +396,16 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         )
     }
 
-    public fun create(){
+    public fun create() {
 
     }
 
-    fun  showToast(message: String, length: Int){
+    fun showToast(message: String, length: Int) {
         Toast.makeText(this, message, length).show()
     }
 
-    public fun runInBackground(runnable: Runnable){
-        if (handler != null){
+    public fun runInBackground(runnable: Runnable) {
+        if (handler != null) {
             handler?.post(runnable)
         }
     }

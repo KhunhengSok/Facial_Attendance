@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_employee.*
 
 class EmployeeActivity : AppCompatActivity() {
     private var Employee_Url: String? = null
-    private var organizationId = SplashScreenActivity.currentDepartment!!.id
+    private var organizationId = SplashScreenActivity.currentOrganization!!.id
     private var requestQueue:RequestQueue ?=null
 
     fun init(){

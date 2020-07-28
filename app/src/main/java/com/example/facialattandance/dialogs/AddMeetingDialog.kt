@@ -8,12 +8,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import com.example.facialattandance.Activity.SplashScreenActivity
+import com.example.facialattandance.AddEmployeeActivity
 import com.example.facialattandance.R
 import com.example.facialattandance.utils.HOSTING_URL
 import kotlinx.android.synthetic.main.dialog_add_meeting.*
@@ -47,7 +46,7 @@ class AddMeetingDialog: DialogFragment(), DatePickerDialog.OnDateSetListener, Ti
         val POST_MEETING_URL = HOSTING_URL + "api/event/create"
         val json = JSONObject()
         json.put("name", "")
-        json.put("organization", SplashScreenActivity.currentDepartment!!.name)
+        json.put("organization", SplashScreenActivity.currentOrganization!!.name)
         json.put("date", dates)
         json.put("start_time", "start_time")
         json.put("end_time", "end_time")
@@ -71,7 +70,6 @@ class AddMeetingDialog: DialogFragment(), DatePickerDialog.OnDateSetListener, Ti
             val datePicker: DialogFragment = TimePickerFragment()
             datePicker.setTargetFragment(targetFragment, 0)
             datePicker.show(fragmentManager!!, "time picker")
-
         }
 
         view.meeting_end_time_button?.setOnClickListener{
@@ -84,7 +82,6 @@ class AddMeetingDialog: DialogFragment(), DatePickerDialog.OnDateSetListener, Ti
         view.create_button?.setOnClickListener{
             createMeeting()
             Log.d("AddMeetingDialog", "init: create")
-
             dialog?.dismiss()
         }
 
@@ -98,20 +95,32 @@ class AddMeetingDialog: DialogFragment(), DatePickerDialog.OnDateSetListener, Ti
 
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+       /* Log.d("AddMeetingDialog", "onDateSet: ")
+        val c = Calendar.getInstance()
+        val pattern = "yyyy-MM-dd"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        c[Calendar.YEAR] = year
+        c[Calendar.MONTH] = month
+        c[Calendar.DAY_OF_MONTH] = dayOfMonth
+        Log.d(TAG, "onDateSet: $month")
+        val currentDate: String = simpleDateFormat.format(c.getTime())*/
+//        dates = Integer.toString(dayOfMonth)
+//        months = Integer.toString(month)
+//        years = Integer.toString(year)
+
+//        date_picker_button.text = currentDate
+//                date_picker_button?.setText(currentDate)
+        Log.d(AddEmployeeActivity.TAG, "onDateSet: ")
+
         Log.d("AddMeetingDialog", "onDateSet: ")
         val c = Calendar.getInstance()
-        val pattern = "dd-MM-yyyy"
+//        val pattern = "dd-MM-yyyy"
+        val pattern = "yyyy-MM-dd"
         val simpleDateFormat = SimpleDateFormat(pattern)
         c[Calendar.YEAR] = year
         c[Calendar.MONTH] = month
         c[Calendar.DAY_OF_MONTH] = dayOfMonth
         val currentDate: String = simpleDateFormat.format(c.getTime())
-        dates = Integer.toString(dayOfMonth)
-        months = Integer.toString(month)
-        years = Integer.toString(year)
-
-//        date_picker_button.text = currentDate
-//                date_picker_button?.setText(currentDate)
         Log.d("AddMeetingDialog", "onDateSet: $currentDate")
         date_picker_button?.text = currentDate
     }
