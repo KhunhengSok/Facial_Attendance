@@ -5,10 +5,29 @@
         android:layout_height="match_parent"
         tools:context=".fragment.EarlyAttendeesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:background="@color/colorBackground">
+        <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/progress_bar"
+                android:layout_height="wrap_content" />
+
+        <TextView
+                android:id="@+id/none_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/grey_80"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                />
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </FrameLayout>
 
 </FrameLayout>

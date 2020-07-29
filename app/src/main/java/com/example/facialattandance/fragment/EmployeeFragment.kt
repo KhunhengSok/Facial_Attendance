@@ -88,8 +88,13 @@ class EmployeeFragment : Fragment() {
             // Deserialize json using gson library
             val gson = Gson()
             val employees = gson.fromJson(response.toString(), Array<Employee>::class.java)
-            val adapter = EmployeeAdapter(employees)
-            recycler_view?.adapter = adapter
+            if(employees.isNotEmpty()){
+                val adapter = EmployeeAdapter(employees)
+                recycler_view?.adapter = adapter
+            }else{
+                none_indicator.visibility = View.VISIBLE
+                none_indicator.text = "None"
+            }
         }, Response.ErrorListener { error ->
             showLoading(false)
             Toast.makeText(activity, "Load data error.", Toast.LENGTH_SHORT).show()

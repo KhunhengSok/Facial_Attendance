@@ -8,12 +8,12 @@
         android:title="@string/home" />
 
 
-    <item
+    <!--<item
         android:id="@+id/mnu_setup"
         android:icon="@drawable/ic_clock"
         android:title="@string/setup"
         />
-
+-->
     <item
         android:id="@+id/mnu_employee"
         android:icon="@drawable/ic_profile"

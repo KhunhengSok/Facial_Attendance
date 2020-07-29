@@ -46,10 +46,10 @@ class HomeActivity : AppCompatActivity() {
 //                    showFragment(AddEmployeeFragment())
                     showFragment(EmployeeFragment())
                 }
-                R.id.mnu_setup -> {
+              /*  R.id.mnu_setup -> {
                     supportActionBar!!.setTitle(R.string.setup)
                     showFragment(SetupFragment())
-                }
+                }*/
             }
             true
         }

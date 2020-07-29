@@ -16,16 +16,20 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <meta-data android:name="android.max_aspect" android:value="2.5" />
+        <activity android:name=".Activity.MeetingAttendeeActivity"></activity>
 
-        <activity android:name=".FaceRegisterationActivity"></activity>
+        <meta-data
+                android:name="android.max_aspect"
+                android:value="2.5" />
+
+        <activity android:name=".FaceRegisterationActivity" />
         <activity android:name=".EventAttendeesActivity" />
         <activity
                 android:name=".AddEmployeeActivity"
-                android:parentActivityName=".Activity.HomeActivity"
-                />
-        <activity android:name=".Activity.CameraActivity" android:resizeableActivity="true">
-
+                android:parentActivityName=".Activity.HomeActivity" />
+        <activity
+                android:name=".Activity.CameraActivity"
+                android:resizeableActivity="true">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -42,6 +46,7 @@
         <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
