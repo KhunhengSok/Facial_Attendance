@@ -129,10 +129,10 @@ class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePick
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         Log.d("AddMeetingDialog", "onDateSet: ")
         val c = Calendar.getInstance()
-        val pattern = "yyyy-mm-dd"
+        val pattern = "yyyy-MM-dd"
         val simpleDateFormat = SimpleDateFormat(pattern)
         c[Calendar.YEAR] = year
-        c[Calendar.MONTH] = (month + 1 )
+        c[Calendar.MONTH] = (month)
         c[Calendar.DAY_OF_MONTH] = dayOfMonth
         val currentDate: String = simpleDateFormat.format(c.getTime())
         dates = Integer.toString(dayOfMonth)

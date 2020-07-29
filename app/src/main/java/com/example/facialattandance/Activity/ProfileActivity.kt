@@ -13,9 +13,6 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.department
 import kotlinx.android.synthetic.main.activity_profile.name
-import kotlinx.android.synthetic.main.fragment_add_employee.view.*
-import kotlinx.android.synthetic.main.fragment_camera.*
-import kotlinx.android.synthetic.main.view_holder_employee.*
 import java.lang.NullPointerException
 
 

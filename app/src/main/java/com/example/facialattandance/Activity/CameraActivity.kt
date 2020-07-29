@@ -318,9 +318,10 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
             permissions: Array<out String>,
             grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CODE_PERMISSION) {
+        if (requestCode == REQUEST_CODE_PERMISSION ) {
             if (allPermissionsGranted()) {
-                startCamera()
+                init()
+//                startCamera()
             } else {
                 Toast.makeText(this, "Permissions not granted.", Toast.LENGTH_SHORT).show()
                 finish()

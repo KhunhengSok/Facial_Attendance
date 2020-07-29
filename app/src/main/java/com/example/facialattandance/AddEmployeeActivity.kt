@@ -73,11 +73,13 @@ class AddEmployeeActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_employee)
+
         init()
         showLoading(false)
 
         Log.d(TAG, "onCreate: ")
         setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         toolbar.setNavigationOnClickListener(View.OnClickListener {
@@ -225,7 +227,6 @@ class AddEmployeeActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         Log.d(TAG, "onDateSet: ")
 
-        Log.d(TAG, "onDateSet: ")
         val c = Calendar.getInstance()
 //        val pattern = "dd-MM-yyyy"
         val pattern = "yyyy-MM-dd"

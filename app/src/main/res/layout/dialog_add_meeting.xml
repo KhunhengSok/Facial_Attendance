@@ -46,6 +46,7 @@
                 <com.google.android.material.button.MaterialButton
                         android:id="@+id/date_picker_button"
                         android:background="@color/colorPrimaryLight"
+                        android:backgroundTint="@color/colorPrimaryLight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -86,6 +87,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text=""
+                                android:backgroundTint="@color/colorPrimaryLight"
                                 android:padding="3dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:textColor="@android:color/white"
@@ -110,6 +112,7 @@
                                 android:id="@+id/meeting_end_time_button"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:backgroundTint="@color/colorPrimaryLight"
                                 android:padding="3dp"
                                 android:text=""
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

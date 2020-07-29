@@ -96,6 +96,11 @@ class EarlyAttendeesFragment : Fragment() {
         requestQueue!!.add(request)
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadEmployee()
+    }
+
     private fun showLoading(state: Boolean) {
         if (state) {
             progress_bar?.visibility = View.VISIBLE

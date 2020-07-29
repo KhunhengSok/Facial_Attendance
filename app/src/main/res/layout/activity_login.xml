@@ -1,57 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context=".Activity.LoginActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical"
+        tools:context=".Activity.LoginActivity">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="64dp"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimary"
                 android:textSize="32dp"
-                android:layout_marginTop="64dp"
-                android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@android:color/white"
-                android:text="@string/app_name"/>
+                android:textStyle="bold" />
 
 
-        <EditText
-                android:inputType="textPersonName"
-                android:layout_width="match_parent"
-                android:layout_marginTop="64dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:padding="5dip"
+        <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/usernameEdit"
-                android:textAlignment="center"
-                android:hint="@string/username"
-                android:background="@drawable/border_edit_text" />
-
-        <EditText
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
-                android:layout_marginTop="32dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="64dp"
                 android:layout_marginEnd="12dp"
+                android:background="@drawable/border_edit_text"
+                android:hint="@string/username"
+                android:inputType="textPersonName"
                 android:padding="5dip"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_80" />
+
+        <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEdit"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/border_edit_text"
                 android:hint="@string/password"
-                android:background="@drawable/border_edit_text" />
+                android:inputType="textPassword"
+                android:padding="5dip"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_80" />
 
         <Button
                 android:id="@+id/loginButton"
@@ -69,20 +71,19 @@
 
 
     <LinearLayout
-        android:id="@+id/blurBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:alpha="0.5"
-        android:visibility="invisible"
-        android:orientation="horizontal" />
+            android:id="@+id/blurBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:visibility="invisible" />
 
     <ProgressBar
-        android:id="@+id/loginProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/white"
-        android:layout_gravity="center"
-        android:visibility="visible"
-            />
+            android:id="@+id/loginProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/white"
+            android:visibility="visible" />
 </FrameLayout>

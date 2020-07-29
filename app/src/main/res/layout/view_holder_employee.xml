@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="2dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:background="@drawable/soft_button">
@@ -18,10 +20,10 @@
 <!--        />-->
     <ImageView
             android:id="@+id/img_profile"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="40dp"/>
 <!--            app:placeholderImage="@drawable/ic_image_black_24dp"-->
 <!--            app:roundedCornerRadius="2dp"-->
 <!--            />-->
@@ -30,12 +32,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/img_profile"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="12dp"
         android:textSize="24dp"
-        android:fontFamily="sans-serif-condensed-light"
         android:textColor="@android:color/white"
         android:id="@+id/name"
+        android:textStyle="bold"
         android:text="Name"/>
 
     <TextView
@@ -43,11 +45,21 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/img_profile"
         android:layout_below="@id/name"
-        android:textSize="16dp"
-        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="18sp"
         android:textColor="@android:color/white"
         android:layout_marginStart="12dp"
         android:id="@+id/department"
+        android:text="Department"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/department"
+        android:layout_toEndOf="@id/img_profile"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginStart="12dp"
+        android:id="@+id/position_"
         android:text="Department"/>
 
 </RelativeLayout>

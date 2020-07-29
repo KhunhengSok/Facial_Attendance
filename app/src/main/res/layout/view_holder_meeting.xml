@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:text="Title"
-        android:fontFamily="sans-serif-condensed-light"
         android:textSize="32sp"
         />
 
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/total"
         android:text="Total "
-        android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
         android:layout_below="@id/title"
         />
@@ -34,7 +32,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/attendee"
         android:text="20"
-        android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
         android:layout_below="@id/total"
         />
@@ -44,7 +41,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/date"
         android:text="25 July"
-        android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/Showdate"
@@ -54,7 +50,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/Showdate"
         android:text="@string/happened"
-        android:fontFamily="sans-serif-condensed-light"
         android:textSize="24sp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/title"

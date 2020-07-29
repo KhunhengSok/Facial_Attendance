@@ -15,7 +15,7 @@ class DatePickerActivity : DialogFragment() {
         val year = c[Calendar.YEAR]
         val month = c[Calendar.MONTH]
         val day = c[Calendar.DAY_OF_MONTH]
-        Log.d("DatePickerFragment", "onCreateDialog: $year $month $day")
+        Log.d("DatePickerActivity", "onCreateDialog: $year $month $day")
         return DatePickerDialog(activity!!, R.style.DialogTheme, activity as OnDateSetListener?, year, month, day)
     }
 }

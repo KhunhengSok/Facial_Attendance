@@ -43,6 +43,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         final Employee employee = employees[position];
         holder.name.setText(employee.getName());
         holder.department.setText(employee.getDepartment());
+        holder.position.setText(employee.getPosition());
 //        holder.img_profile.setImageURI(employee.getImageUrl());
         Log.d(TAG, "onBindViewHolder: ");
         try{
@@ -78,11 +79,13 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         private TextView department;
 //        private SimpleDraweeView img_profile;
         private ImageView img_profile;
+        private TextView position;
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             department = itemView.findViewById(R.id.department);
             img_profile = itemView.findViewById(R.id.img_profile);
+            position = itemView.findViewById(R.id.position_);
         }
     }
 }

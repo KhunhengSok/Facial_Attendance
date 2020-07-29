@@ -21,7 +21,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddMeetingDialog: DialogFragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class AddMeetingDialog: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
         val inflater = LayoutInflater.from(context)
@@ -94,55 +94,6 @@ class AddMeetingDialog: DialogFragment(), DatePickerDialog.OnDateSetListener, Ti
 
 
 
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-       /* Log.d("AddMeetingDialog", "onDateSet: ")
-        val c = Calendar.getInstance()
-        val pattern = "yyyy-MM-dd"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        c[Calendar.YEAR] = year
-        c[Calendar.MONTH] = month
-        c[Calendar.DAY_OF_MONTH] = dayOfMonth
-        Log.d(TAG, "onDateSet: $month")
-        val currentDate: String = simpleDateFormat.format(c.getTime())*/
-//        dates = Integer.toString(dayOfMonth)
-//        months = Integer.toString(month)
-//        years = Integer.toString(year)
-
-//        date_picker_button.text = currentDate
-//                date_picker_button?.setText(currentDate)
-        Log.d(AddEmployeeActivity.TAG, "onDateSet: ")
-
-        Log.d("AddMeetingDialog", "onDateSet: ")
-        val c = Calendar.getInstance()
-//        val pattern = "dd-MM-yyyy"
-        val pattern = "yyyy-MM-dd"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        c[Calendar.YEAR] = year
-        c[Calendar.MONTH] = month
-        c[Calendar.DAY_OF_MONTH] = dayOfMonth
-        val currentDate: String = simpleDateFormat.format(c.getTime())
-        Log.d("AddMeetingDialog", "onDateSet: $currentDate")
-        date_picker_button?.text = currentDate
-    }
-
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        Log.d(TAG, "onTimeSet: ")
-        val c = Calendar.getInstance()
-        val pattern = "hh-mm-a"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        c[Calendar.HOUR_OF_DAY] = hourOfDay
-        c[Calendar.MINUTE] = minute
-        val currentTime: String = simpleDateFormat.format(c.getTime())
-        hour = Integer.toString(hourOfDay)
-        minutePicker = Integer.toString(minute)
-
-        if (isStart == true) {
-            meeting_start_time_button.setText(currentTime)
-        } else {
-            meeting_end_time_button?.setText(currentTime)
-        }
-    }
 
     companion object{
         val TAG = "AddMeetingDialog"
