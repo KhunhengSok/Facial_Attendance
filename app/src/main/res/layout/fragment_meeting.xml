@@ -22,6 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <TextView
+                android:id="@+id/none_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/grey_80"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                />
+
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_new_meeting_fab"
             android:layout_width="wrap_content"

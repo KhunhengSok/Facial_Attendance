@@ -80,8 +80,13 @@ class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePick
             // Deserialize json using gson library
             val gson = Gson()
             val meeting = gson.fromJson(response.toString(), Array<Meeting>::class.java)
-            val adapter = MeetingAdapter(meeting)
-            recycler_view_meeting?.adapter = adapter
+            if(meeting.isNotEmpty()){
+                val adapter = MeetingAdapter(meeting)
+                recycler_view_meeting?.adapter = adapter
+            }else{
+                none_indicator.visibility = View.VISIBLE
+                none_indicator.text = "None"
+            }
         }, Response.ErrorListener { error ->
             Log.d(TAG, "loadMeeting: error")
             Log.d(TAG, "Load data error: " + error.message)
@@ -195,6 +200,7 @@ class MeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePick
                     Log.d(TAG, "createMeeting: error")
                     Log.d(TAG, "createMeeting: $error")
                     showLoading(false)
+                    Toast.makeText(context, "Cannot add. Unexpected error", Toast.LENGTH_SHORT).show()
                 }
         }){
             override fun getHeaders(): MutableMap<String, String> {

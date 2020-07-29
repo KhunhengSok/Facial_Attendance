@@ -25,6 +25,7 @@
             app:tabIndicatorHeight="0dp"
             app:tabTextColor="@android:color/black"
             app:tabIndicatorColor="@android:color/holo_blue_bright"
+            app:tabBackground="@drawable/selector_bottombar"
             />
 
     <androidx.viewpager2.widget.ViewPager2

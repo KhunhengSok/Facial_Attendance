@@ -126,9 +126,9 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
     var mStorageRef = FirebaseStorage.getInstance().getReference("image/")
 
     //    public val faceCompareUrl = HOSTING_URL + "api/face_embedding/compare"
-    //ToDo
-    var eventId = 4
-    val JoinMeetingUrl = HOSTING_URL + "api/event/${eventId}/join"
+
+    var eventId:Int ?= null
+    var JoinMeetingUrl:String ?= null
 //    val JoinMeetingUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/recognize"
     val FaceEmbeddingRegisterUrl = HOSTING_URL + "api/organization/${currentOrganization!!.id}/face-embedding/create"
 
@@ -139,6 +139,9 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
         setContentView(R.layout.activity_camera)
         FirebaseApp.initializeApp(this)
         setCameraModeFromIntent(intent)
+
+        eventId = intent.getIntExtra("EventId", 1)
+        JoinMeetingUrl = HOSTING_URL + "api/event/${eventId}/join"
 
 
         if (allPermissionsGranted()) {

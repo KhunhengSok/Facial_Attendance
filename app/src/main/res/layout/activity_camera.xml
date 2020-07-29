@@ -31,12 +31,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.core.widget.NestedScrollView
+     <!--   <androidx.core.widget.NestedScrollView
                 android:id="@+id/bottom_sheet"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:background="@android:color/white"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints" />-->
 
         <!--    <ImageView
                     android:id="@+id/cameraFacingSwitchButton"

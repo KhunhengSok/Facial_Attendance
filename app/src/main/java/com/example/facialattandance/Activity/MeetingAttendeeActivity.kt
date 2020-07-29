@@ -23,6 +23,8 @@ class MeetingAttendeeActivity : AppCompatActivity() {
         const val MEETING_ID_KEY = "MEETING_ID"
         val TAG = "MeetingAttendeeActivity"
     }
+    var id = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +32,14 @@ class MeetingAttendeeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_meeting_attendee)
         Log.d(TAG, "onCreate: ")
 
-        val id = intent.getIntExtra(MEETING_ID_KEY, 0)
         val meetingName = intent.getStringExtra("MeetingName")
-
+        id = intent.getIntExtra(MEETING_ID_KEY, 0)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener{
+            this.onBackPressed()
+        }
         supportActionBar?.title = meetingName
 
 
@@ -64,6 +70,8 @@ class MeetingAttendeeActivity : AppCompatActivity() {
         TabLayoutMediator(tab_layout as TabLayout, viewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
             tab.text = names.get(position)
         }).attach()
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,10 +88,8 @@ class MeetingAttendeeActivity : AppCompatActivity() {
                 Log.d(TAG, "onOptionsItemSelected: clicked")
                 val intent = Intent(baseContext, CameraActivity::class.java)
                 intent.putExtra(CameraActivity.CAMERA_MODE_KEY, CameraActivity.SCANNING_MODE)
-                scan_face.setOnClickListener {
-                    startActivity(intent)
-
-                }
+                intent.putExtra("EventId", id)
+                startActivity(intent)
             }
 
         }
