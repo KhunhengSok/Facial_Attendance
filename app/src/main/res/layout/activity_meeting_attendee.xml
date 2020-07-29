@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            android:background="@android:color/white"
+            android:background="@color/grey_10"
             app:tabIndicatorHeight="0dp"
             app:tabTextColor="@android:color/black"
-            app:tabIndicatorColor="@android:color/holo_blue_bright"
+            app:tabSelectedTextColor="@color/colorPrimaryLight"
             />
 <!--            app:tabBackground="@drawable/selector_bottombar"-->
 

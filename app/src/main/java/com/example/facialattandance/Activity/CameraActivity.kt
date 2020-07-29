@@ -418,8 +418,13 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                                         try {
                                             val ownerName = intent.getStringExtra(OWNER_NAME)
                                             if (!ownerName.isNullOrBlank()) {
-                                                val file = savebitmap(bitmap, ownerName)
-                                                val faceEmbedding = faceEmbedding!!.processFace(bitmap, rotation)
+                                                var face = cropFaces(bitmap, faces)[0]
+                                                Log.d(TAG, "onFaceDetected: get face")
+                                                Log.d(TAG, "onFaceDetected: bitmap ${bitmap.byteCount}")
+                                                Log.d(TAG, "onFaceDetected: face ${face?.byteCount}")
+
+                                                val file = savebitmap(face!!, ownerName)
+                                                val faceEmbedding = faceEmbedding!!.processFace(face!!, rotation)
                                                 registerFace(file!!, faceEmbedding!!)
                                             }
 
@@ -430,7 +435,7 @@ class CameraActivity : AppCompatActivity(), CameraXConfig.Provider {
                                     }
 
                                     //for scanning mode, every 10 frame
-                                    if(currentMode == SCANNING_MODE && faces.size > 0 && frame % 20 ==0 ){
+                                    if(currentMode == SCANNING_MODE && faces.size > 0 && frame % 10 ==0 ){
                                         Log.d(TAG, "onFaceDetected: currentframe $frame")
                                         var faces = cropFaces(bitmap, faces)
                                         Log.d(TAG, "onFaceDetected: croppedfaces is ${faces.size}")

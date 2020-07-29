@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
-    android:padding="16dp"
-    android:background="@drawable/meeting_btn">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/meeting_btn"
+        android:orientation="vertical"
+        android:padding="16dp">
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/title"
-        android:text="Title"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        />
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/total"
-        android:text="Attend: "
-        android:textSize="22sp"
-        android:layout_below="@id/date"
-        android:layout_alignParentLeft="true"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/attendee"
-        android:text="20"
-        android:textSize="22sp"
-        android:layout_toRightOf="@id/total"
-        android:layout_alignBottom="@id/total"
-        />
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date"
+            android:layout_alignParentLeft="true"
+            android:text="Attend: "
+            android:textSize="22sp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/time"
-        android:text="time"
-        android:textSize="20sp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/date"
-        />
+            android:id="@+id/attendee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/total"
+            android:layout_toRightOf="@id/total"
+            android:text="20"
+            android:textSize="22sp" />
+
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:text="@string/date"
-        android:textSize="22sp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/title"
-        />
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3dp"
+            android:text="@string/date"
+            android:textSize="22sp" />
+
+    <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date"
+            android:layout_alignParentRight="true"
+            android:text="time"
+            android:textSize="20sp" />
+
+
 
 </RelativeLayout>

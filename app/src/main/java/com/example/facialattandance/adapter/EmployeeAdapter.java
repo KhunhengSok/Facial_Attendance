@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.facialattandance.Activity.ProfileActivity;
 import com.example.facialattandance.Model.Employee;
 import com.example.facialattandance.R;
+import com.example.facialattandance.utils.UtilKt;
 import com.google.gson.Gson;
 
 
@@ -41,7 +42,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
     @Override
     public void onBindViewHolder(@NonNull final EmployeeViewHolder holder, int position) {
         final Employee employee = employees[position];
-        holder.name.setText(employee.getName());
+        holder.name.setText(UtilKt.capitalize(employee.getName()));
         holder.department.setText(employee.getDepartment());
         holder.position.setText(employee.getPosition());
 //        holder.img_profile.setImageURI(employee.getImageUrl());
