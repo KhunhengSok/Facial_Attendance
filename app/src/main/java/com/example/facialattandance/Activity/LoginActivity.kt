@@ -1,5 +1,6 @@
 package com.example.facialattandance.Activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -41,8 +42,11 @@ class LoginActivity : AppCompatActivity() {
         init()
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun init() {
         requestQueue = Volley.newRequestQueue(this)
+        window.statusBarColor = R.color.white
+        
         loginButton.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "init: Log in button clicked")
 

@@ -13,6 +13,7 @@
     <color name="textButton">#636366</color>
     <color name="btn">#9CC3D5</color>
     <color name="border">#EEA47F</color>
+    <color name="white">#ffffff</color>
 
     <color name="grey_3">#f7f7f7</color>
     <color name="grey_5">#f2f2f2</color>

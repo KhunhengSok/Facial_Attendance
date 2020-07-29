@@ -41,6 +41,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         String name = meeting.getName();
         name = UtilKt.capitalize(name);
         holder.title.setText(name);
+        holder.time.setText(meeting.getStart_time().substring(0, 5) + " - " + meeting.getEnd_time().substring(0,5));
         Log.d(TAG, "onBindViewHolder: " + meeting.getAttendees().length);
         holder.attendee.setText(Integer.toString(meeting.getAttendees().length));
         holder.date.setText(meeting.getDate());
@@ -68,12 +69,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         private TextView title;
         private TextView attendee;
         private TextView date;
+        private TextView time;
 
         public MeetingViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             attendee = itemView.findViewById(R.id.attendee);
             date = itemView.findViewById(R.id.date);
+            time = itemView.findViewById(R.id.time);
 
         }
 

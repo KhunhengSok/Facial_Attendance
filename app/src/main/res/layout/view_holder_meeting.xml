@@ -17,40 +17,44 @@
         android:id="@+id/title"
         android:text="Title"
         android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/total"
-        android:text="Total "
-        android:textSize="24sp"
-        android:layout_below="@id/title"
+        android:text="Attend: "
+        android:textSize="22sp"
+        android:layout_below="@id/date"
+        android:layout_alignParentLeft="true"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/attendee"
         android:text="20"
-        android:textSize="24sp"
-        android:layout_below="@id/total"
+        android:textSize="22sp"
+        android:layout_toRightOf="@id/total"
+        android:layout_alignBottom="@id/total"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:text="25 July"
-        android:textSize="24sp"
+        android:id="@+id/time"
+        android:text="time"
+        android:textSize="20sp"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/Showdate"
+        android:layout_below="@id/date"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Showdate"
-        android:text="@string/happened"
-        android:textSize="24sp"
+        android:id="@+id/date"
+        android:text="@string/date"
+        android:textSize="22sp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/title"
         />

@@ -3,171 +3,168 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@drawable/dialog_selector"
         android:fitsSystemWindows="true"
-        app:layout_constraintCircleRadius="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintCircleRadius="15dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_10" />
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/meeting_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Event name"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/grey_40"
+                    android:textColorHint="@color/grey_40"
+                    android:textSize="24sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/spacing_xsmall"
+                    android:text="Date"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_60" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/date_picker_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryLight"
+                    android:backgroundTint="@color/colorPrimaryLight"
+                    android:padding="3dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
 
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/grey_10" />
+                    android:layout_height="@dimen/spacing_large" />
+
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_large">
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/meeting_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:hint="Event name"
-                        android:textColor="@color/grey_40"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-                        android:textColorHint="@color/grey_40" />
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/spacing_xsmall"
-                        android:text="Date"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/grey_60" />
-
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/date_picker_button"
-                        android:background="@color/colorPrimaryLight"
-                        android:backgroundTint="@color/colorPrimaryLight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:padding="3dp"
-                        android:textColor="@android:color/white"
-                        android:textAlignment="center" />
-
-
-
-
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/spacing_large" />
-
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginRight="5dp"
-                            android:orientation="vertical">
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="From"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_60" />
 
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="From"
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_60" />
-
-                        <com.google.android.material.button.MaterialButton
-                                android:id="@+id/meeting_start_time_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:backgroundTint="@color/colorPrimaryLight"
-                                android:padding="3dp"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@android:color/white"
-                                android:textAlignment="center" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="vertical">
-
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="To"
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_60" />
-
-                        <com.google.android.material.button.MaterialButton
-                                android:id="@+id/meeting_end_time_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/colorPrimaryLight"
-                                android:padding="3dp"
-                                android:text=""
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@android:color/white"
-                                android:textAlignment="center" />
-
-                    </LinearLayout>
-
-
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/meeting_start_time_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPrimaryLight"
+                            android:padding="3dp"
+                            android:text=""
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/white" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="To"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_60" />
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/meeting_end_time_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPrimaryLight"
+                            android:padding="3dp"
+                            android:text=""
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                         android:id="@+id/cancel_button"
-                        android:backgroundTint="@android:color/white"
-                        android:background="@color/colorPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_margin="5dp"
                         android:layout_toLeftOf="@id/create_button"
+                        android:background="@color/colorPrimary"
+                        android:backgroundTint="@color/grey_10"
+                        android:gravity="center"
 
                         android:paddingLeft="@dimen/spacing_xsmall"
                         android:paddingRight="@dimen/spacing_xsmall"
                         android:text="@string/cancel"
                         android:textAlignment="center"
-                        android:textColor="@color/grey_40"
-                    />
+                        android:textColor="@color/grey_40" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/create_button"
-                    android:backgroundTint="@android:color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_margin="5dp"
-                    android:layout_alignParentRight="true"
-                    android:paddingLeft="@dimen/spacing_xsmall"
-                    android:paddingRight="@dimen/spacing_xsmall"
-                    android:text="@string/create"
-                    android:textColor="@color/grey_40"
+                        android:id="@+id/create_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="5dp"
+                        android:backgroundTint="@color/grey_10"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/spacing_xsmall"
+                        android:text="@string/create"
+                        android:textColor="@color/grey_40"
 
-                />
+                        />
 
             </RelativeLayout>
 
         </LinearLayout>
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
